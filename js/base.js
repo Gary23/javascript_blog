@@ -409,7 +409,6 @@ Base.prototype.animate = function (obj) {
 
         clearInterval(window.timer);        // 解决加速问题 把timer看做全局变量,开始前先清除上次的定时器，否则会加速。
 
-        console.log(attr)
 
 
         timer = setInterval(function () {
@@ -451,12 +450,14 @@ Base.prototype.animate = function (obj) {
         function getTarget() {          // 缓动的目标点
             element.style[attr] = target + 'px';
             clearInterval(timer);
+            if(obj.fn != undefined) obj.fn();
         }
 
         function getOpacity() {          // 透明度的目标点
             element.style.opacity = parseInt(target) / 100;
             element.style.filter = 'alpha(opacity=' + parseInt(target) + ')';
             clearInterval(timer);
+            if(obj.fn != undefined) obj.fn();
         }
     }
     return this;
