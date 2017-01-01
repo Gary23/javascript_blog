@@ -11,9 +11,25 @@ $(function () {
 $().ready(function(){
     // 个人中心
     $('#header .member').hover(function () {
-        $('#header ul').show();
+
+        $('#header ul').show().animate({
+            mul:{
+                opacity:100,
+                height:100
+            },
+            step:10
+        })
     }, function () {
-        $('#header ul').hide();
+        $('#header ul').animate({
+            mul:{
+                opacity:30,
+                height:0
+            },
+            step:10,
+            fn:function(){
+                $('#header ul').hide();
+            }
+        })
     })
 
     // 登录框
@@ -47,7 +63,13 @@ $().ready(function(){
     login.drag($('#login h2').first());
 
     // 百度分享
-    $('#share').css('top',(getInner().height - parseInt(getStyle($('#share').first(),'height'))) / 2 + 'px')
+    $('#share').css('top',getScroll().top + (getInner().height - parseInt(getStyle($('#share').first(),'height'))) / 2 + 'px')
+
+
+    addEvent(window,'scroll',function(){
+        $('#share').css('top',getScroll().top + (getInner().height - parseInt(getStyle($('#share').first(),'height'))) / 2 + 'px')
+
+    })
 
     // 百度分享伸缩
     $('#share').hover(function(){
@@ -62,9 +84,52 @@ $().ready(function(){
         })
     })
 
+    // 导航部分
+    $('#nav .about li').hover(function(){
+        var target = $(this).first().offsetLeft;
+        $('#nav .nav_bg').animate({
+            attr:'x',
+            target:target + 20,
+            speed:10,
+            fn:function(){
+                $('#nav .white').animate({
+                    attr:'x',
+                    target:-target,
+
+                })
+            }
+        })
+    },function(){
+        $('#nav .nav_bg').animate({
+            attr:'x',
+            target:20,
+            speed:10,
+            fn:function(){
+                $('#nav .white').animate({
+                    attr:'x',
+                    target:0,
+                    t:6
+                })
+            }
+        })
+    })
 
 
-
+    $('#sidebar h2').toggle(function(){
+        $(this).next().animate({
+            mul:{
+                height:0,
+                opacity:0
+            }
+        })
+    },function(){
+        $(this).next().animate({
+            mul:{
+                height:150,
+                opacity:100
+            }
+        })
+    })
 
 })
 

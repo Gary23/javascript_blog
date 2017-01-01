@@ -91,6 +91,27 @@ Base.prototype.last = function () {
     return this.elements[this.elements.length - 1];
 }
 
+// 获取当前节点的下一个节点
+Base.prototype.next = function(){
+
+    for(var i = 0;i < this.elements.length;i++){
+        this.elements[i] = this.elements[i].nextSibling;
+        if(this.elements[i] == null) throw new Error('没有下一个节点');
+        if(this.elements[i].nodeType == 3) this.next();     // 如果获取的是文本节点，就递归一次，在获取一次文本节点的下一个节点。
+    }
+    return this;
+}
+
+// 获取当前节点的上一个节点
+Base.prototype.prev = function(){
+    for(var i = 0;i < this.elements.length;i++){
+        this.elements[i] = this.elements[i].previousSibling;
+        if(this.elements[i] == null) throw new Error('没有上一个节点');
+        if(this.elements[i].nodeType == 3) this.prev();     // 如果获取的是文本节点，就递归一次，在获取一次文本节点的下一个节点。
+    }
+    return this;
+}
+
 
 // 获取id节点
 // 用于对象内部调用，前台不需要调用所以不需要return this.
@@ -316,6 +337,20 @@ Base.prototype.unlock = function () {
     return this;
 }
 
+
+// 点击切换的方法
+Base.prototype.toggle = function () {
+    for (var i = 0; i < this.elements.length; i++) {
+        (function(element,args){            // 使用闭包可以让每个调用这个方法的对象独享count计数器，可以按照计数器的顺序执行传入的函数，如果共享计数器会出现问题，那么执行函数的顺序就乱了
+            var count = 0;
+            addEvent(element, 'click', function () {
+                args[count++ % args.length].call(this);      // 让count在0至args.length之间循环。call是为了将this(this.elements[i])返回
+            });
+        })(this.elements[i],arguments);
+    }
+    return this;
+}
+
 //----------------------------------------------------------常用事件---------------------------------------------
 
 // 设置鼠标移入移出的hover方法
@@ -360,104 +395,149 @@ Base.prototype.resize = function (fn) {
     return this;
 }
 
-// 设z置动画
+// 设置动画
 // 设置left和top确定横移还是竖移,step要传正值,通过target的值确定具体方向
 /*
- * 'attr'   传入值为'x'或'y'或'w'或'h','x'表示横轴运动'y'还是纵轴运动'w'表示设置宽'h'表示设置高，'x'代表left,'y'代表top,'w'代表'width','h'代表'height'。默认值left。
- * 'start'  传入值为数值，表示开始的位置，默认值getStyle(element, attr)
+ * 'attr'   传入值为'x'或'y','x'表示横轴运动'y'还是纵轴运动 ，'x'代表left,'y'代表top,
+ *          传入值为'w'或'h','w'表示设置宽'h'表示设置高，'w'代表'width','h'代表'height'。
+ *          传入之为'o','o'表示opacity。
+ *          如果以上的都不匹配那么attr有可能传的是正常的属性，比如fontSize,那么就让attr=obj['attr']。如果什么都没传默认left
+ * 'start'  传入值为数值，表示开始的位置，默认值getStyle(element, attr)，
  * 't'      传入值为毫秒值，表示定时器刷新时间间隔，默认值17
  * 'step'   传入值每次移动的距离值，默认值10
  * 'target' 传入运动的目标位置，默认值start+alter
  * 'alter'  传入增量，也就是比start的位置增加的距离，这个没有默认值。
- * 'speed'  传入运动的速度，主要在缓动的时候用到，默认值为6。
- * 'type'   传入0或1,0代表匀速运动constant，1代表缓动buffer。
+ * 'speed'  传入运动的速度，主要在缓动的时候用到，默认值为6。值越大速度越慢。
+ * 'type'   传入0或1,0代表匀速运动constant，匀速运动就是每次前进的值为step的固定值，
+ *          传入1代表缓动buffer。缓动就是先块后慢，在定时器中随时用target减去元素现在的位置，得到的距离除以speed，得到的值是step，所以每次前进的值都会变并且越来越小，也就达到了越来越慢的效果
  *
  * 整个插件target和alter两个参与必须传一个，否则报错。
  */
+
+// attr简写值的说明。
+
+// 动画队列：一个动画结束后再继续执行下一个动画，就像排队执行，只需要传参数时设置一个fn属性，值为下一个动画即可。
+// 具体实现的时候，在getTarget和getOpacity内部最后运行fn参数即可。因为能进入到这两个函数就说明第一个动画已经执行完毕了。
+
+// 同步动画：和动画队列不同，同步动画主要是指不同动画同时执行，通过传入mul函数达到目的，mul是个对象，内部可以传入属性和属性值，例如width:100,height:100;
+// 属性只能传css的属性，在运动之前会遍历mul，取出属性和属性值来用。属性当做attr用，属性值当做target来用。
+// 但是此时如果不传mul，只用单独运动会出错，因为attr和target的值就获取不到了，所以进入定时器之前先判断下mul有效性，如果没传的话就将创建一个，单独的attr和target的值传进去就行。
+
+//
+
 Base.prototype.animate = function (obj) {
 
     for (var i = 0; i < this.elements.length; i++) {
         var element = this.elements[i];
         var attr = obj['attr'] == 'x' ? 'left' : obj['attr'] == 'y' ? 'top' :
-                obj['attr'] == 'w' ? 'width' : obj['attr'] == 'h' ? 'height' :
-                    obj['attr'] == 'o' ? 'opacity' : 'left';                         // 传入'y'就是top，传入'x'就是left，默认left
+            obj['attr'] == 'w' ? 'width' : obj['attr'] == 'h' ? 'height' :
+                obj['attr'] == 'o' ? 'opacity' : obj['attr'] != undefined ? obj['attr'] : 'left';         // attr的值如果是undefined就是left，否则就是传入的具体值。
 
         var start = obj['start'] != undefined ? obj['start'] :
-                attr == 'opacity' ? parseFloat(getStyle(element, attr)) * 100 : parseInt(getStyle(element, attr));
+            attr == 'opacity' ? parseFloat(getStyle(element, attr)) * 100 : parseInt(getStyle(element, attr));
 
         var t = obj['t'] != undefined ? obj['t'] : 17;
         var step = obj['step'] != undefined ? obj['step'] : 10;
         var target = obj['target'];
         var alter = obj['alter'];
+        var mul = obj['mul'];
         var speed = obj['speed'] != undefined ? obj['speed'] : 6;
         var type = obj['type'] == 0 ? 'constant' : obj['type'] == 1 ? 'buffer' : 'buffer';      // 值为0时代表constant平速，值为1时代表buffer缓动，默认buffer。
 
-        if (alter != undefined && target == undefined) {
+
+        if (alter != undefined && target == undefined) {         // 这里判断必须传入的值
             target = alter + start;
-        } else if (alter == undefined && target == undefined) {
+        } else if (alter == undefined && target == undefined && mul == undefined) {
             throw new Error('alter或target必须要传入一个');
         }
 
+
         if (start > target) step = -step;       // 解决反方向的问题。如果target小于step，说明要往反方向走。
 
-        if (attr == 'opacity') {             // 处理透明度起始值，兼容ie和W3C。
+
+        if (attr == 'opacity') {             // 处理透明度起始值，兼容ie和W3C。如果没传start就取元素的css数据。
             element.style.opacity = parseInt(start) / 100;
             element.style.filter = 'alpha(opacity=' + parseInt(start) + ')';
         } else {
-            element.style[attr] = start + 'px';         // 处理运动的初始值
+            element.style[attr] = start + 'px';
         }
 
-        clearInterval(window.timer);        // 解决加速问题 把timer看做全局变量,开始前先清除上次的定时器，否则会加速。
+
+        if (mul == undefined) {           // 处理同步动画和单独动画的兼容
+            mul = {};
+            mul[attr] = target;
+        }
 
 
+        clearInterval(element.timer);        // 解决加速问题 把timer看做全局变量,开始前先清除上次的定时器，否则会加速。
 
-        timer = setInterval(function () {
-            //document.getElementById('aaa').innerHTML += start +'<br />';
 
-            if (type == 'buffer') {             // 解决缓动的问题,速度是越来越慢，所以每次用(target-当前值)/speed,算出step的值。step越来越小。
-                step = attr == 'opacity' ? (target - parseFloat(getStyle(element, attr)) * 100) / speed :
-                (target - parseInt(getStyle(element, attr))) / speed;
-                step = step > 0 ? Math.ceil(step) : Math.floor(step);        // 这里step为正值要用ceil, 负值要用floor。因为正值取大能取1，负值取小能取-1，就是不要取到0.
+        element.timer = setInterval(function () {
+            var flag = true;            // 解决同步动画一个执行完了导致另一个虽然没到target但是也不执行了。
+                                        // 这里做一个节流阀，默认为true，但是每次运动都重新赋值false，直到所有动画都执行完了才变为true.
+
+            for (var i in mul) {            // 处理同步动画，每个要运动的属性同步开始运动。
+                attr = i;
+                target = mul[i];
+
+                if (type == 'buffer') {             // 解决缓动的问题,速度是越来越慢，所以每次用(target-当前值)/speed,算出step的值。step越来越小。
+                    step = attr == 'opacity' ? (target - parseFloat(getStyle(element, attr)) * 100) / speed :
+                    (target - parseInt(getStyle(element, attr))) / speed;
+                    step = step > 0 ? Math.ceil(step) : Math.floor(step);        // 这里step为正值要用ceil, 负值要用floor。因为正值取大能取1，负值取小能取-1，就是不要取到0.
+                }
+
+
+                if (attr == 'opacity') {       // 处理透明度的动画，因为没有单位并且是浮点数所以单独处理。
+                    if (step == 0) {           // 缓动取整时有时会取到0，取到0时就让其直接到达target的透明度。
+                        getOpacity();
+                    } else if (step > 0 && Math.abs(parseFloat(getStyle(element, attr)) * 100 - target) <= step) {      // 解决抖动的问题。元素现在的位置 - target < step，就让元素位置立马变为target的值
+                        getOpacity();
+                    } else if (step < 0 && (parseFloat(getStyle(element, attr)) * 100 - target) <= Math.abs(step)) {      // 同上
+                        getOpacity();
+                    } else {
+                        var temp = parseFloat(getStyle(element, attr)) * 100;
+                        element.style.opacity = parseInt(temp + step) / 100;
+                        element.style.filter = 'alpha(opacity=' + parseInt(temp + step) + ')';          // 正常的透明度运动过程，兼容W3C和ie的写法
+                    }
+
+                    if (parseInt(target) != parseInt(parseFloat(getStyle(element, attr)) * 100)) flag = false;        // 判断透明度的同步动画完成情况。
+
+                } else {                    // 处理单位是'px'的属性的运动。
+                    if (step == 0) {        // 缓动时取整时有时会取到0，取到0时就让其直接到达target的位置。
+                        getTarget();
+                    } else if (step > 0 && Math.abs(parseInt(getStyle(element, attr)) - target) <= step) {      // 解决抖动的问题。元素现在的位置 - target < step，就让元素位置立马变为target的值
+                        getTarget();
+                    } else if (step < 0 && (parseInt(getStyle(element, attr)) - target) <= Math.abs(step)) {      // 同上
+                        getTarget();
+                    } else {
+                        element.style[attr] = parseInt(getStyle(element, attr)) + step + 'px';       // 这是正常的运动过程，不满足上面的两个if就说明没达到target，就正常运动。
+                    }
+
+                    if (parseInt(target) != parseInt(getStyle(element, attr))) flag = false;        // 判断同步动画完成情况。
+
+
+                }
+
+
             }
 
-            if (attr == 'opacity') {
-
-                if (step == 0) {        // 缓动取整时有时会取到0，取到0时就让其直接到达target的透明度。
-                    getOpacity();
-                } else if (step > 0 && Math.abs(parseFloat(getStyle(element, attr)) * 100 - target) <= step) {      // 解决抖动的问题。元素现在的位置 - target < step，就让元素位置立马变为target的值
-                    getOpacity();
-                } else if (step < 0 && (parseFloat(getStyle(element, attr)) * 100 - target) <= Math.abs(step)) {      // 同上，只是方向不同。
-                    getOpacity();
-                } else {
-                    var temp = parseFloat(getStyle(element, attr)) * 100;
-                    element.style.opacity = parseInt(temp + step) / 100;
-                    element.style.filter = 'alpha(opacity=' + parseInt(temp + step) + ')';
-                }
-            } else {
-
-                if (step == 0) {        // 缓动时取整时有时会取到0，取到0时就让其直接到达target的位置。
-                    getTarget();
-                } else if (step > 0 && Math.abs(parseInt(getStyle(element, attr)) - target) <= step) {      // 解决抖动的问题。元素现在的位置 - target < step，就让元素位置立马变为target的值
-                    getTarget();
-                } else if (step < 0 && (parseInt(getStyle(element, attr)) - target) <= Math.abs(step)) {      // 同上，只是方向不同。
-                    getTarget();
-                } else {
-                    element.style[attr] = parseInt(getStyle(element, attr)) + step + 'px';       // 这是正常的运动过程，不满足上面的两个if就说明没达到target，就正常运动。
-                }
+            if (flag) {                                      // 判断所有同步动画是否都完成了，这个要在定时器内部、循环的外部来判断。
+                clearInterval(element.timer);              // 按理说运动动画只要达到target，flag就能变为true。但是进入一次定时器，要走完一次完整的for循环,循环时，运动快的那个到达target变为true,接着循环到慢的那个没有达到target又改为了false,而判断在for循环外部定时器内部，所以出了循环直接判断还是false.
+                if (obj.fn != undefined) obj.fn();          // 直到循环内没有值等于false了，才会进入这个if，执行下一个函数，也解决了一个动画对列执行两次的问题。
             }
         }, t);
 
-        function getTarget() {          // 缓动的目标点
+        function getTarget() {          // 直接到达运动的目标点，并执行下一个函数
             element.style[attr] = target + 'px';
-            clearInterval(timer);
-            if(obj.fn != undefined) obj.fn();
+            clearInterval(element.timer);
+            if (obj.fn != undefined) obj.fn();
         }
 
-        function getOpacity() {          // 透明度的目标点
+        function getOpacity() {          // 直接到达透明度的目标点，并执行下一个函数
             element.style.opacity = parseInt(target) / 100;
             element.style.filter = 'alpha(opacity=' + parseInt(target) + ')';
-            clearInterval(timer);
-            if(obj.fn != undefined) obj.fn();
+            clearInterval(element.timer);
+            if (obj.fn != undefined) obj.fn();
         }
     }
     return this;

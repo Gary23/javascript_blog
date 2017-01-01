@@ -23,6 +23,7 @@
 })();
 
 
+
 // 判断浏览器是否加载完DOM
 // addDomLoaded(function(){})
 function addDomLoaded(fn) {
@@ -84,6 +85,16 @@ function getInner() {
     }
 }
 
+
+// 滚动条卷曲值工具
+function getScroll(){
+    return {
+        top:document.documentElement.scrollTop || document.body.scrollTop,
+        left:document.documentElement.scrollLeft || document.body.scrollLeft
+    }
+}
+
+
 // 获取元素的属性
 // getStyle(div,'height')
 function getStyle(element, attr) {
@@ -137,6 +148,9 @@ function preDef(event) {
 }
 
 
+
+
+
 // 绑定事件的兼容性处理
 // addEvent(div,click,function(){alert(1)})
 /*
@@ -148,7 +162,9 @@ function preDef(event) {
  * 5、ie8真是太费劲了......
  */
 function addEvent(obj, type, fn) {
+
     if (typeof obj.addEventListener != 'undefined') {
+
         obj.addEventListener(type, fn, false);          // W3C标准
     } else
     //	if(typeof obj.attachEvent != 'undefined'){

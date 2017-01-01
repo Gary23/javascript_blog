@@ -53,14 +53,15 @@ a {
 
 #header .member {
     float: right;
-    width: 80px;
+    width: 70px;
     /*height: 30px;*/
     line-height: 30px;
     font-size: 14px;
     letter-spacing: 2px;
-    background: url(../img/arrow.png) no-repeat right center;
+    background: url(../img/arrow.png) no-repeat 95% center;
     cursor: pointer;
     position: relative;
+    padding: 0 10px;
 }
 
 #header ul {
@@ -68,11 +69,14 @@ a {
     top: 30px;
     left: 0px;
     background-color: #FBF7E1;
-    width: 100px;
-    height: 100px;
+    width: 90px;
+    height: 0px;
     border: 1px solid #999;
     border-top: none;
     display: none;
+    opacity: 0.3;
+    filter: Alpha(Opacity=100);
+    overflow: hidden;
 }
 
 #header ul li {
@@ -174,6 +178,122 @@ a {
 #login .other a {
     color: #666666;
 }
+
+/*导航部分*/
+#nav {
+    width: 465px;
+    height: 52px;
+    background: url(../img/nav_bg.png) no-repeat;
+    margin: 50px auto 0 auto;
+    position: relative;
+}
+
+#nav ul {
+    position: absolute;
+}
+
+#nav ul li {
+    width: 85px;
+    height: 52px;
+    line-height: 52px;
+    font-weight: 700;
+    float: left;
+    text-align: center;
+    letter-spacing: 2px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+#nav ul.black {
+    left: 20px;
+    z-index: 1;
+}
+
+
+
+#nav div.nav_bg {
+    width: 85px;
+    height: 52px;
+    background: url(../img/nav_over.png) no-repeat 0 11px;
+    position: absolute;
+    left: 20px;
+    top: 0px;
+    z-index: 2;
+    overflow: hidden;
+    cursor: pointer;
+    /*opacity: 0.5;*/
+    /*filter: Alpha(Opacity=100);*/
+}
+
+#nav ul.white{
+    width: 425px;
+    z-index: 3;
+    left: 0;
+}
+#nav ul.white a {
+    color: #ffffff;
+}
+
+#nav ul.about {
+    z-index: 4;
+    left: 20px;
+    background: #ffffff;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+
+
+#main {
+    width: 900px;
+
+    background: red;
+    margin: 50px auto;
+}
+#sidebar {
+    width: 250px;
+    height: 500px;
+    /*background: #eeeeee;*/
+    float: left;
+
+}
+#sidebar h2 {
+    width: 248px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+    background: url(../img/side_h.png);
+    text-indent: 10px;
+    border: 1px solid #cccccc;
+    border-bottom: none;
+    letter-spacing: 2px;
+}
+#sidebar ul {
+    height: 150px;
+    border: 1px solid #cccccc;
+    margin: 0 0 10px 0;
+    overflow: hidden;
+    opacity: 1;
+    filter:alpha(opacity=100);
+}
+#sidebar ul li{
+    height: 30px;
+    line-height: 30px;
+    background: url(../img/arrow4.gif) no-repeat 12px center;
+    text-indent: 30px;
+}
+#sidebar ul li a {
+    color: #333;
+}
+#index {
+    width: 630px;
+    height: 500px;
+    background: #eeeeee;
+    float: right;
+}
+
+
+
+
 
 /*分享部分*/
 #share {
@@ -314,4 +434,12 @@ a {
     opacity: 0;
     filter: alpha(opacity=0);
     display: none;
+}
+
+#bbb {
+    width: 100px;
+    height: 100px;
+    background: red;
+    margin: 100px;
+
 }
