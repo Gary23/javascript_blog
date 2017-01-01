@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # blog前端个人项目
 > 一个blog前端项目，重点在于模仿jQuery封装一个比较基础的js库。库的名称是Base,外部可以通过$()创建Base对象。Base库分为tool.js部分、Base.js部分和各种插件部分。
 
@@ -54,3 +55,7 @@
 #### base_drag.js 拖拽插件 
 
 #### base_animate.js 动画插件
+=======
+# javascript-blog
+一个blog前端项目，重点在于封装一个js库。
+>>>>>>> c4abd9054eb38499289fb7edb5031ef77208543f
