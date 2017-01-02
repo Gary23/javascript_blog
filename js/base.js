@@ -150,7 +150,7 @@ Base.prototype.getClass = function (className, parentNode) {
     }
     var allTag = node.getElementsByTagName('*');
     for (var i = 0; i < allTag.length; i++) {
-        if (allTag[i].className == className) {
+        if ((new RegExp('(\\s|^)' + className + '(\\s|$)')).test(allTag[i].className)) {
             temps.push(allTag[i]);
         }
     }
@@ -189,6 +189,11 @@ Base.prototype.find = function (str) {
 // $('div').getElement(2),
 Base.prototype.getElement = function (num) {
     return this.elements[num];
+}
+
+// 获取某组节点的length
+Base.prototype.length = function(){
+    return this.elements.length;
 }
 
 //获取具体的某个节点,并且返回Base对象用作链式编程
@@ -281,6 +286,37 @@ Base.prototype.html = function (str) {
     return this;
 }
 
+// 实现innerText方法
+Base.prototype.text = function(str){
+    for (var i = 0; i < this.elements.length; i++) {
+        if (arguments.length == 0) {
+            return getInnerText(this.elements[i]);
+        }
+        return setInnerText(this.elements[i],str);
+    }
+    return this;
+}
+
+
+// 设置表单字段元素
+Base.prototype.form = function(name){
+    for (var i = 0; i < this.elements.length; i++) {
+        this.elements[i] = this.elements[i][name];   // $('form').getElement(0).user 这样就可以获取name为user的表单
+    }
+return this;
+}
+
+// 获取表单字段的内容
+// 和html方法相同
+Base.prototype.value = function (str) {
+    for (var i = 0; i < this.elements.length; i++) {
+        if (arguments.length == 0) {
+            return this.elements[i].value;
+        }
+        this.elements[i].value = str;
+    }
+    return this;
+}
 
 // 设置元素居中
 // center(元素的宽,元素的高)
@@ -352,6 +388,17 @@ Base.prototype.toggle = function () {
 }
 
 //----------------------------------------------------------常用事件---------------------------------------------
+
+// 事件发生器
+// 和addEvent不同的是这个是可以被Base对象调用的，而addEvent只能传DOM对象
+Base.prototype.bind = function(event,fn){
+    for(var i = 0;i < this.elements.length;i++){
+        addEvent(this.elements[i],event,fn);
+    }
+    return this;
+}
+
+
 
 // 设置鼠标移入移出的hover方法
 // hover(移入执行的fn,移出执行的fn)

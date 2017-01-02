@@ -9,6 +9,7 @@
 #### window.sys 检测浏览器版本工具
 #### addDomLoaded() 入口函数工具
 #### getInner() 获取浏览器长宽
+#### getScroll() 获取滚动条卷曲值
 #### getStyle() 获取元素样式
 #### hasClass() 检测重复class
 #### insertRule() 添加style标签内的样式
@@ -17,9 +18,11 @@
 #### preDef() 阻止默认事件
 #### addEvent() 添加事件
 #### removeEvent() 删除事件
+#### getInnerText() 获取元素文本内容工具
+#### setInnerText() 设置元素文本内容工具
 #### Trim() 删除开头或结尾空格
 #### scrollTop() 锁定滚动条
-
+#### inArray() 某一个值是否存在某一个数组中
 
 ## Base.js部分
 
@@ -32,6 +35,7 @@
 #### prev() 获取下一个节点
 #### find() 匹配子节点
 #### getElement() Base对象转换DOM对象
+#### length() 获取某组元素的length
 #### eq() 获取具体的某个节点
 #### addClass() 添加class
 #### removeClass() 删除class
@@ -39,12 +43,16 @@
 #### addRule() 添加style的样式
 #### removeRule() 删除style的样式
 #### html() 获取元素内容
+#### text() 获取元素文本内容
+#### form() 设置表单字段
+#### value() 获取和设置表单字段内容
 #### center() 元素居中
 #### show() 元素显示
 #### hide() 元素隐藏
 #### lock() 全屏遮罩层
 #### unlock() 取消遮罩层
 #### toggle() 点击切换的方法
+#### bind() 事件发生器
 #### hover() 鼠标移入移出事件
 #### click() 单机事件
 #### resize() 浏览器改变窗口尺寸事件

@@ -254,6 +254,20 @@ function removeEvent(obj, type, fn) {
 }
 
 
+// 获取innerText兼容性处理
+function getInnerText(element){
+    return (typeof element.textContent == 'string') ? element.textContent : element.innerText;      // textContent是兼容firefox的
+}
+// 设置innerText兼容性处理
+function setInnerText(element,text){
+    if (typeof element.textContent == 'string') {
+        element.textContent = text;
+    }else{
+        element.innerText = text;
+    }
+}
+
+
 // 删除前后空格
 function Trim(str) {
     return str.replace(/(^\s*)|(\s*$)/g, '')
@@ -263,4 +277,13 @@ function Trim(str) {
 function scrollTop() {
     document.documentElement.scrollTop = 0;
     document.body.scrollTop = 0;
+}
+
+
+// 某一个值是否存在某一个数组中
+function inArray(array,value){
+    for(var i in array){
+        if(array[i] === value) return true;
+    }
+    return false;
 }

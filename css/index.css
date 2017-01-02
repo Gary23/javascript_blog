@@ -4,7 +4,11 @@ li,
 h2,
 h1,
 h3,
-h4 {
+h4,
+ul,
+dl,
+dd,
+p{
     margin: 0;
     padding: 0;
     font-size: 12px;
@@ -97,7 +101,7 @@ a {
     background: #fc0 url(../img/arrow4.gif) no-repeat 5px center;
 }
 
-#header .login {
+#header .login,#header .reg {
     float: right;
     margin-right: 20px;
     width: 35px;
@@ -107,6 +111,221 @@ a {
     letter-spacing: 2px;
     cursor: pointer;
 }
+
+/*注册部分*/
+#reg {
+    width: 600px;
+    height: 550px;
+    border: 1px solid #ccc;
+    position: absolute;
+    /*display: none;*/
+    z-index: 9999;
+    background: #FFFFFF;
+
+}
+
+#reg h2 {
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 14px;
+    letter-spacing: 2px;
+    color: #666;
+    background: url(../img/login_header.png) repeat-x;
+    border-bottom: 1px solid #CCCCCC;
+    position: relative;
+    cursor: default;
+    margin-bottom: 20px;
+}
+#reg h2 img {
+    /*float: right;*/
+    position: absolute;
+    top: 13px;
+    right: 13px;
+    cursor: pointer;
+}
+
+/*注册的表单部分*/
+#reg dl{
+    font-size: 14px;
+    color: #333333;
+    margin: 20px;
+    padding: 0 0 0 10px;
+    position: relative;
+}
+#reg dl dd {
+    height: 30px;
+    padding: 5px 0;
+}
+#reg dl dd input.text,#reg dl dd select{
+    width: 200px;
+    height: 25px;
+    border: 1px solid #CCCCCC;
+    background: #fff;
+    font-size: 14px;
+    color: #999;
+}
+#reg dl dd select {
+    width: 200px;
+}
+#reg dl dd.birthday select {
+    width: 60px;
+}
+#reg dl dd textarea {
+    width: 360px;
+    height: 100px;
+    background: #ffffff;
+    resize: none;
+}
+#reg dl dd input.submit{
+    width: 143px;
+    height: 33px;
+    background: url(../img/reg.png) no-repeat;
+    cursor: pointer;
+}
+/*密码验证公共部分*/
+#reg dl dd span.info,#reg dl dd span.error,#reg dl dd span.success {
+    width: 165px;
+    height: 32px;
+    line-height: 32px;
+    display: inline-block;
+    font-size: 12px;
+    color: #333;
+    padding: 0 0 0 35px;
+    position: absolute;
+    display: none;
+}
+#reg dl dd span.info {
+    background: url(../img/reg_info.png) no-repeat;
+
+}
+#reg dl dd span.error {
+    background: url(../img/reg_error.png) no-repeat;
+}
+#reg dl dd span.success {
+    height: 14px;
+    line-height: 14px;
+    background: url(../img/reg_succ.png) no-repeat;
+    padding: 0 0 0 20px;
+    color: green;
+}
+
+/*用户名验证*/
+#reg dl dd span.info_user {
+    padding-top: 7px;
+    height: 43px;
+    line-height: 18px;
+    top: 3px;
+    left: 295px;
+    background: url(../img/reg_info2.png) no-repeat;
+}
+#reg dl dd span.error_user {
+    top: 3px;
+    left: 295px;
+}
+#reg dl dd span.success_user {
+    top: 12px;
+    left: 295px;
+}
+/*密码验证*/
+#reg dl dd span.info_pwd {
+    width: 244px;
+    height: 106px;
+    padding: 4px 0 0 16px;
+    top: 5px;
+    left: 295px;
+    background: url(../img/reg_info3.png) no-repeat;
+    letter-spacing: 0;
+}
+#reg dl dd span.info_pwd p {
+    height: 25px;
+    line-height: 25px;
+    color: #666666;
+}
+#reg dl dd span.info_pwd p strong.s {
+    color: #cccccc;
+}
+#reg dl dd span.error_pwd {
+    top: 43px;
+    left: 295px;
+}
+#reg dl dd span.success_pwd {
+    top: 52px;
+    left: 295px;
+}
+/*确认密码验证*/
+#reg dl dd span.info_notpwd{
+    top: 83px;
+    left: 295px;
+}
+#reg dl dd span.success_notpwd{
+    top: 92px;
+    left: 295px;
+}
+#reg dl dd span.error_notpwd{
+    top: 83px;
+    left: 295px;
+}
+
+/*问题回答部分验证*/
+#reg dl dd span.info_ans{
+    top: 163px;
+    left: 295px;
+}
+#reg dl dd span.success_ans{
+    top: 172px;
+    left: 295px;
+}
+#reg dl dd span.error_ans{
+    top: 163px;
+    left: 295px;
+}
+
+/*邮箱验证*/
+#reg dl dd span.info_email{
+    top: 203px;
+    left: 295px;
+}
+#reg dl dd span.success_email{
+    top: 212px;
+    left: 295px;
+}
+#reg dl dd span.error_email{
+    top: 203px;
+    left: 295px;
+}
+#reg dl dd ul.all_email {
+    width: 180px;
+    height: 202px;
+    background: white;
+    padding: 5px 10px;
+    position: absolute;
+    top: 233px;
+    left: 70px;
+    border: 1px solid #cccccc;
+    display: none;
+}
+#reg dl dd ul.all_email li {
+    height: 25px;
+    line-height: 25px;
+    border-bottom: 1px solid #e5edf2;
+    padding: 0 5px;
+    cursor: pointer;
+
+}
+
+/*文本框部分*/
+#reg dl dd.ps{
+    padding: 0 0 0 300px;
+}
+#reg dl dd.ps strong.num {
+    padding: 0 2px;
+}
+#reg dl dd.ps span.clear {
+    color: #06f;
+    cursor: pointer;
+}
+
 
 /*登陆部分*/
 
@@ -244,8 +463,7 @@ a {
 
 
 #main {
-    width: 900px;
-
+    width: 1000px;
     background: red;
     margin: 50px auto;
 }
@@ -257,7 +475,7 @@ a {
 
 }
 #sidebar h2 {
-    width: 248px;
+    width: 249px;
     height: 30px;
     line-height: 30px;
     font-size: 14px;
@@ -285,7 +503,7 @@ a {
     color: #333;
 }
 #index {
-    width: 630px;
+    width: 730px;
     height: 500px;
     background: #eeeeee;
     float: right;
