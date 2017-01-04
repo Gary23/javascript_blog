@@ -21,8 +21,8 @@
 #### getInnerText() 获取元素文本内容工具
 #### setInnerText() 设置元素文本内容工具
 #### Trim() 删除开头或结尾空格
-#### scrollTop() 锁定滚动条
 #### inArray() 某一个值是否存在某一个数组中
+#### offsetTop() 获取元素到浏览器窗口顶点的位置
 
 ## Base.js部分
 
@@ -36,6 +36,9 @@
 #### find() 匹配子节点
 #### getElement() Base对象转换DOM对象
 #### length() 获取某组元素的length
+#### attr() 获取和设置元素的属性、自定义属性
+#### index() 获取索引值
+#### opacity() 设置元素的透明度
 #### eq() 获取具体的某个节点
 #### addClass() 添加class
 #### removeClass() 删除class

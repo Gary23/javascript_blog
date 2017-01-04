@@ -133,19 +133,19 @@ function deleteRule(sheet, index) {
 }
 
 //获取Event对象
-function getEvent(event) {
-    return event || window.event;
-}
+//function getEvent(event) {
+//  return event || window.event;
+//}
 
 //阻止默认行为(主要是用后面那种方法，这个不用了)
-function preDef(event) {
-    var e = getEvent(event);
-    if (typeof e.preventDefault != 'undefined') {
-        e.preventDefault();         // W3C标准
-    } else {
-        e.returnValue = false;          // 兼容ie
-    }
-}
+//function preDef(event) {
+//  var e = getEvent(event);
+//  if (typeof e.preventDefault != 'undefined') {
+//      e.preventDefault();         // W3C标准
+//  } else {
+//      e.returnValue = false;          // 兼容ie
+//  }
+//}
 
 
 
@@ -274,10 +274,10 @@ function Trim(str) {
 }
 
 // 锁定滚动条
-function scrollTop() {
-    document.documentElement.scrollTop = 0;
-    document.body.scrollTop = 0;
-}
+//function scrollTop() {
+//  document.documentElement.scrollTop = 0;
+//  document.body.scrollTop = 0;
+//}
 
 
 // 某一个值是否存在某一个数组中
@@ -286,4 +286,34 @@ function inArray(array,value){
         if(array[i] === value) return true;
     }
     return false;
+}
+
+// 获取元素到浏览器窗口顶点的位置
+function offsetTop(element){
+    var top = element.offsetTop;        // W3C标准
+    var parent = element.offsetParent;
+    while(parent != null){          // 兼容ie标准，ie中offsetTop指的是距离父元素的top值。所以一直获取父元素直到最上层元素。
+        top += parent.offsetTop;
+        parent = parent.offsetParent;
+    }
+    return top;
+}
+
+// 阻止默认行为
+function preDef(e){
+//	var e = getEvent(event);
+	e.preventDefault();
+}
+
+// 获取上一个节点的索引
+function prevIndex(current,parent){
+	var length = parent.children.length;
+	if(current == 0) return length - 1;
+	return parseInt(current) - 1;
+}
+// 获取下一个节点的索引
+function nextIndex(current,parent){
+	var length = parent.children.length;
+	if(current == length - 1) return 0;
+	return parseInt(current) + 1;
 }

@@ -30,15 +30,19 @@ $().extend('drag', function() {
 					Top = e.clientY - diffY;
 				if(Left < 0) {
 					Left = 0;
-				} else
-				if(Left > getInner().width - _this.offsetWidth) {
-					Left = getInner().width - _this.offsetWidth;
+				} else if(Left <= getScroll().Left){
+					Left = getScroll().Left;
+				}else
+				if(Left > getInner().width + getScroll().left - _this.offsetWidth) {
+					Left = getInner().width - + getScroll().left - _this.offsetWidth;
 				}
 				if(Top < 0) {
 					Top = 0;
-				} else
-				if(Top > getInner().height - _this.offsetHeight) {
-					Top = getInner().height - _this.offsetHeight;
+				} else if(Top <= getScroll().top){
+					Top = getScroll().top;
+				}else
+				if(Top > getInner().height + getScroll().top - _this.offsetHeight) {
+					Top = getInner().height + getScroll().top - _this.offsetHeight;
 				}
 				_this.style.left = Left + 'px';
 				_this.style.top = Top + 'px';

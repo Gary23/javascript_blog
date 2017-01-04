@@ -15,6 +15,9 @@ p{
     font-family: "microsoft yahei";
     color: #333;
 }
+body {
+	background: url(../img/header_bg.png) repeat-x;
+}
 
 ul li {
     list-style: none;
@@ -31,11 +34,7 @@ a {
 
 /*头部*/
 
-.top {
-    width: 100%;
-    height: 30px;
-    background: url(../img/header_bg.png) repeat-x;
-}
+
 
 #header {
     width: 1000px;
@@ -45,21 +44,23 @@ a {
 }
 
 #header .logo {
-    float: left;
+    
     width: 100px;
     height: 30px;
-    clear: both;
+    float: left;
 }
 
 #header .logo img {
     display: block;
+    height: 29px;
 }
 
 #header .member {
-    float: right;
+    
     width: 70px;
     /*height: 30px;*/
     line-height: 30px;
+    float: right;
     font-size: 14px;
     letter-spacing: 2px;
     background: url(../img/arrow.png) no-repeat 95% center;
@@ -118,7 +119,7 @@ a {
     height: 550px;
     border: 1px solid #ccc;
     position: absolute;
-    /*display: none;*/
+    display: none;
     z-index: 9999;
     background: #FFFFFF;
 
@@ -267,6 +268,11 @@ a {
     left: 295px;
 }
 
+#reg dl dd span.error_ques{
+    top: 123px;
+    left: 295px;
+}
+
 /*问题回答部分验证*/
 #reg dl dd span.info_ans{
     top: 163px;
@@ -313,7 +319,10 @@ a {
     cursor: pointer;
 
 }
-
+#reg dl dd span.error_birthday {
+    top: 241px;
+    left: 350px;
+}
 /*文本框部分*/
 #reg dl dd.ps{
     padding: 0 0 0 300px;
@@ -469,7 +478,7 @@ a {
 }
 #sidebar {
     width: 250px;
-    height: 500px;
+    height: 570px;
     /*background: #eeeeee;*/
     float: left;
 
@@ -504,16 +513,91 @@ a {
 }
 #index {
     width: 730px;
-    height: 500px;
+    height: 570px;
     background: #eeeeee;
     float: right;
 }
 
+/*轮播图部分*/
+#banner {
+    width: 1000px;
+    height: 166px;
+    float: left;
+    margin: 10px 0;
+    position: relative;
+    overflow: hidden;
+}
 
+#banner img {
+    width: 1000px;
+    height: 166px;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
 
+}
+#banner ul {
+    position: absolute;
+    top: 135px;
+    left: 470px;
+    z-index: 4;
 
+}
+#banner ul li {
+    float: left;
+    padding: 0 5px;
+    font-size: 24px;
+    color: #999;
+    cursor: pointer;
+}
+#banner span {
+    position: absolute;
+    width: 1000px;
+    height: 25px;
+    bottom: 0;
+    left: 0;
+    background: #333;
+    filter: Alpha(Opacity=30);
+    opacity: 0.3;
+    z-index: 3;
+}
 
-/*分享部分*/
+#banner strong {
+    position: absolute;
+    top: 145px;
+    left: 10px;
+    color: #ffffff;
+    z-index: 4;
+}
+#photo {
+    width: 1000px;
+    float: left;
+}
+
+#photo dl {
+    width: 250px;
+    height: 270px;
+    float: left;
+    margin: 5px 0 15px 0;
+}
+#photo dl dt{
+    width: 225px;
+    height: 250px;
+    margin: 0 auto;
+}
+#photo dl dt img{
+    width: 225px;
+    height: 250px;
+}
+#photo dl dd{
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+}
+
+    /*分享部分*/
 #share {
     width: 210px;
     height: 260px;
@@ -641,6 +725,106 @@ a {
     background: url(../img/share.png);
     cursor: pointer;
 }
+
+
+#photo_big {
+    width: 620px;
+    height: 511px;
+    border: 1px solid #ccc;
+    position: absolute;
+    display: none;
+   	top: 100px;
+   	left: 200px;
+    z-index: 9999;
+    background: #FFFFFF;
+
+}
+
+#photo_big h2 {
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 14px;
+    letter-spacing: 2px;
+    color: #666;
+    background: url(../img/login_header.png) repeat-x;
+    border-bottom: 1px solid #CCCCCC;
+    position: relative;
+    cursor: default;
+    /*margin-bottom: 20px;*/
+}
+#photo_big h2 img {
+    /*float: right;*/
+    position: absolute;
+    top: 13px;
+    right: 13px;
+    cursor: pointer;
+}
+#photo_big .big{
+	width: 620px;
+	height: 460px;
+	padding: 10px 0 0 0 ;
+	background: #333333;
+}
+#photo_big .big img{
+	display: block;
+	margin: 0 auto;
+	position: relative;
+	top: 190px;
+
+}
+#photo_big .big strong {
+	display: block;
+	width: 100px;
+	height: 100px;
+	line-height: 90px;
+	background: #000000;
+	opacity:0;
+	filter: alpha(opacity=0);
+	font-size: 60px;
+	color: #FFFFFF;
+	text-align: center;
+	cursor: pointer;
+	position: absolute;
+	
+}
+#photo_big .big strong.sl{
+	top: 210px;
+	left: 10px;
+}
+#photo_big .big strong.sr{
+	top: 210px;
+	right: 10px;
+}
+#photo_big .big span {
+	width: 300px;
+	height: 450px;
+	display: block;
+	background: #000000;
+	opacity: 0;
+	filter: alpha(opacity=0);
+	cursor: pointer;
+	position: absolute;
+}
+#photo_big .big span.left {
+	top: 50px;
+	left: 10px;
+}
+#photo_big .big span.right {
+	top: 50px;
+	right: 10px;
+}
+#photo_big .big em {
+	position: absolute;
+	top: 460px;
+	right: 30px;
+	color: #FFFFFF;
+	font-size: 16px;
+	font-style: normal;
+	letter-spacing: 2px;
+	
+}
+
 
 /*遮罩层*/
 #screen {
