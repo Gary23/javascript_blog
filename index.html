@@ -8,6 +8,7 @@
 		<script type="text/javascript" src="js/tools.js"></script>
 		<script type="text/javascript" src="js/base.js"></script>
 		<script type="text/javascript" src="js/ajax.js"></script>
+		<script type="text/javascript" src="js/json2.js"></script>
 		<script type="text/javascript" src="js/base_drag.js"></script>
 		<script type="text/javascript" src="js/base_form.js"></script>
 		<script type="text/javascript" src="js/index.js"></script>
@@ -15,30 +16,34 @@
 
 	<body>
 		<!--页面的头部-->
-
-		<div id="header">
-			<div class="logo"><img src="img/logo.gif" /></div>
-			<div class="member">个人中心
-				<ul>
-					<li>
-						<a href="javascript:void(0)">设置</a>
-					</li>
-					<li>
-						<a href="javascript:void(0)">换肤</a>
-					</li>
-					<li>
-						<a href="javascript:void(0)">帮助</a>
-					</li>
-					<li>
-						<a href="javascript:void(0)">退出</a>
-					</li>
-				</ul>
-			</div>
-			<div class="reg">
-				注册
-			</div>
-			<div class="login">
-				登录
+		<div id="header_bg">
+			<div id="header">
+				<div class="logo"><img src="img/logo.gif" /></div>
+				<div class="member">个人中心
+					<ul>
+						<li class="blog">
+							<a href="javascript:void(0)">发文</a>
+						</li>
+						<li class="skin">
+							<a href="javascript:void(0)">换肤</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)">帮助</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)">退出</a>
+						</li>
+					</ul>
+				</div>
+				<div class="reg">
+					注册
+				</div>
+				<div class="login">
+					登录
+				</div>
+				<div class="info">
+					您好
+				</div>
 			</div>
 		</div>
 
@@ -51,6 +56,7 @@
 						<span class="info info_user">请输入用户名,2~20位,由字母、数字和下划线组成</span>
 						<span class="error error_user">输入不合法，请重新输入！</span>
 						<span class="success success_user">可用</span>
+						<span class="loading">正在检测用户名...</span>
 					</dd>
 					<dd>密　　码：<input type="password" name="pwd" class="text" />
 						<span class="info info_pwd">
@@ -127,14 +133,17 @@
 		<!--登录框-->
 		<div id="login">
 			<h2><img src="img/close.png" class="close"/>用户登录</h2>
+			<form name="login">
+				<div class="info"></div>
+				<div class="user">账号： <input type="text" name="user" class="text" /></div>
+				<div class="pwd">密码： <input type="password" name="pwd" class="text" /></div>
+				<div class="button"><input type="button" name="sub" class="submit" value="" /></div>
+				<div class="other">
+					<a href="javascript:void(0)">注册新用户</a> |
+					<a href="javascript:void(0)">忘记密码？</a>
+				</div>
 
-			<div class="user">账号： <input type="text" name="user" class="text" /></div>
-			<div class="pwd">密码： <input type="password" name="pwd" class="text" /></div>
-			<div class="button"><input type="button" class="submit" value="" /></div>
-			<div class="other">
-				<a href="javascript:void(0)">注册新用户</a> |
-				<a href="javascript:void(0)">忘记密码？</a>
-			</div>
+			</form>
 		</div>
 
 		<!--导航部分-->
@@ -245,7 +254,7 @@
 				</ul>
 			</div>
 			<div id="index">
-				index
+
 			</div>
 			<div id="banner">
 				<img src="img/banner1.jpg" alt="第一张轮播图" />
@@ -311,6 +320,11 @@
 				</dl>
 
 			</div>
+			<!--版权信息-->
+			<div id="footer">
+				<p>瓢成web俱乐部 </p>
+				<p>CopyRight </p>
+			</div>
 		</div>
 		<div style="clear: both;">
 
@@ -370,126 +384,36 @@
 			</div>
 		</div>
 
+		<div id="loading">
+			<p>加载中</p>
+		</div>
+		<div id="success">
+			<p>成功！</p>
+		</div>
+
+		<!--发表博文-->
+		<div id="blog">
+			<h2><img src="img/close.png" class="close"/>发表博文</h2>
+			<div class="info"></div>
+			<form action="" name="blog">
+				<dl>
+					<dd>标　题：<input type="text" name="title" class="title" />　(*不可为空)</dd>
+					<dd><span style="vertical-align: 90px">内　容：</span><textarea name="content" class="content"></textarea><span style="vertical-align: 45px">　(*不可为空)</span></dd>
+					<dd style="padding: 15px 0 0 65px"><input type="button" name="sub" class="submit" /></dd>
+				</dl>
+			</form>
+		</div>
+
+		<!--换肤功能-->
+		<div id="skin">
+			<h2><img src="img/close.png" class="close"/>更换皮肤</h2>
+			<div class="skin_bg">
+				
+			</div>
+		</div>
+
 		<!--遮罩层-->
 		<div id="screen"></div>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
-
-		<p>1</p>
 
 	</body>
 

@@ -1,9 +1,5 @@
 //window.onload = function() {
 
-$(function() {
-
-})
-
 $().ready(function() {
 	// 个人中心
 	$('#header .member').hover(function() {
@@ -39,7 +35,7 @@ $().ready(function() {
 		}
 	});
 	$('#header .reg').click(function() {
-		reg.center(600, 550).css('display', 'block');
+		reg.center(600, 550).show();
 		screen.lock().animate({
 			'attr': 'o',
 			'target': 40,
@@ -47,7 +43,7 @@ $().ready(function() {
 		});
 	});
 	$('#reg .close').click(function() {
-		reg.css('display', 'none')
+		reg.hide()
 		screen.animate({
 			'attr': 'o',
 			'target': 0,
@@ -61,65 +57,96 @@ $().ready(function() {
 	// 表单验证部分
 
 	// 初始化表单，解决刷新问题
-	$('form').first().reset();
+	$('form').eq(0).first().reset();
 
 	// 用户名的验证
-	$('form').form('user').bind('focus', function() {
-		$('#reg .info_user').css('display', 'block')
-		$('#reg .error_user').css('display', 'none')
-		$('#reg .success_user').css('display', 'none')
-	}).bind('blur', function() {
-		if(Trim($(this).value()) == '') {
-			$('#reg .info_user').css('display', 'none')
-			$('#reg .error_user').css('display', 'none')
-			$('#reg .success_user').css('display', 'none')
-		} else if(!checkUser()) {
-			$('#reg .info_user').css('display', 'none')
-			$('#reg .error_user').css('display', 'block')
-			$('#reg .success_user').css('display', 'none')
-		} else {
-			$('#reg .info_user').css('display', 'none')
-			$('#reg .error_user').css('display', 'none')
-			$('#reg .success_user').css('display', 'block')
-		}
-	})
-
+	$('form').eq(0).form('user').bind('focus', function() {
+			$('#reg .info_user').show()
+			$('#reg .error_user').hide()
+			$('#reg .success_user').hide()
+		}).bind('blur', function() {
+			if(Trim($(this).value()) == '') {
+				$('#reg .info_user').hide()
+				$('#reg .error_user').hide()
+				$('#reg .success_user').hide()
+			} else {
+				// 1、判断输入的数据合不合法
+				// 2、如果不合法就打印$('#reg .success_user')。
+				// 3、如果合法就去发送ajax请求。
+				// 4、发送请求之后如果不重复就打印$('#reg .success_user')
+				// 5、如果重复就打印$('#reg .error_user').html('用户名被占用!');
+				var _this = this
+				_this.disabled = true;
+				$('#reg .info_user').hide()
+				$('#reg .loading').show();
+				if(!checkUser()) {
+					_this.disabled = false;
+					$('#reg .loading').hide();
+					$('#reg .info_user').hide();
+					$('#reg .error_user').html('输入不合法，请重新输入!').show();
+				} else {
+					ajax({
+						method: 'post',
+						url: '/project/javascript-blog/php/is_user.php',
+						data: $('form').eq(0).serialize(),
+						success: function(data) {
+							if(data == 1) {
+								$('#reg .loading').hide();
+								$('#reg .error_user').html('用户名被占用!').show();
+								_this.disabled = false;
+							} else {
+								$('#reg .loading').hide();
+								$('#reg .success_user').show();
+								_this.disabled = false;
+							}
+						},
+						async: true
+					})
+				}
+			}
+		})
+		// 验证用户名的函数
 	function checkUser() {
-		if(/^[\w]{2,20}$/.test(Trim($('form').form('user').value()))) return true;
+		if(/^[\w]{2,20}$/.test(Trim($('form').eq(0).form('user').value()))) {
+			return true;
+		} else {
+			return false;
+		}
+
 	}
 
 	// 密码验证
-	$('form').form('pwd').bind('focus', function() {
-		$('#reg .info_pwd').css('display', 'block')
-		$('#reg .error_pwd').css('display', 'none')
-		$('#reg .success_pwd').css('display', 'none')
+	$('form').eq(0).form('pwd').bind('focus', function() {
+		$('#reg .info_pwd').show()
+		$('#reg .error_pwd').hide()
+		$('#reg .success_pwd').hide()
 	}).bind('blur', function() {
 		if(Trim($(this).value()) == '') {
-			$('#reg .info_pwd').css('display', 'none')
-			$('#reg .error_pwd').css('display', 'none')
-			$('#reg .success_pwd').css('display', 'none')
+			$('#reg .info_pwd').hide()
+			$('#reg .error_pwd').hide()
+			$('#reg .success_pwd').hide()
 		} else {
 			if(checkPwd()) {
-				$('#reg .info_pwd').css('display', 'none')
-				$('#reg .error_pwd').css('display', 'none')
-				$('#reg .success_pwd').css('display', 'block')
+				$('#reg .info_pwd').hide()
+				$('#reg .error_pwd').hide()
+				$('#reg .success_pwd').show()
 			} else {
-				$('#reg .info_pwd').css('display', 'none')
-				$('#reg .error_pwd').css('display', 'block')
-				$('#reg .success_pwd').css('display', 'none')
+				$('#reg .info_pwd').hide()
+				$('#reg .error_pwd').show()
+				$('#reg .success_pwd').hide()
 			}
 		}
 	})
 
 	// 密码强度验证
-	$('form').form('pwd').bind('keyup', function() {
+	$('form').eq(0).form('pwd').bind('keyup', function() {
 		checkPwd();
 	})
 
 	// 密码验证函数
 	function checkPwd() {
 		// 密码验证的三个条件
-		var value = Trim($('form').form('pwd').value());
+		var value = Trim($('form').eq(0).form('pwd').value());
 		var value_length = value.length;
 		var code_length = 0;
 		// 密码验证的第一个条件是字符在6-20位之间
@@ -188,103 +215,103 @@ $().ready(function() {
 	}
 
 	// 密码确认验证
-	$('form').form('notpwd').bind('focus', function() {
-		$('#reg .info_notpwd').css('display', 'block')
-		$('#reg .error_notpwd').css('display', 'none')
-		$('#reg .success_notpwd').css('display', 'none')
+	$('form').eq(0).form('notpwd').bind('focus', function() {
+		$('#reg .info_notpwd').show()
+		$('#reg .error_notpwd').hide()
+		$('#reg .success_notpwd').hide()
 	}).bind('blur', function() {
 		if(Trim($(this).value()) == '') {
-			$('#reg .info_notpwd').css('display', 'none')
-			$('#reg .error_notpwd').css('display', 'none')
-			$('#reg .success_notpwd').css('display', 'none')
+			$('#reg .info_notpwd').hide()
+			$('#reg .error_notpwd').hide()
+			$('#reg .success_notpwd').hide()
 		} else if(checkNotepwd()) {
-			$('#reg .info_notpwd').css('display', 'none')
-			$('#reg .error_notpwd').css('display', 'none')
-			$('#reg .success_notpwd').css('display', 'block')
+			$('#reg .info_notpwd').hide()
+			$('#reg .error_notpwd').hide()
+			$('#reg .success_notpwd').show()
 		} else {
-			$('#reg .info_notpwd').css('display', 'none')
-			$('#reg .error_notpwd').css('display', 'block')
-			$('#reg .success_notpwd').css('display', 'none')
+			$('#reg .info_notpwd').hide()
+			$('#reg .error_notpwd').show()
+			$('#reg .success_notpwd').hide()
 		}
 	})
 
 	function checkNotepwd() {
-		if(Trim($('form').form('notpwd').value()) == Trim($('form').form('pwd').value())) return true;
+		if(Trim($('form').eq(0).form('notpwd').value()) == Trim($('form').eq(0).form('pwd').value())) return true;
 	}
 
 	// 提问部分
-	$('form').form('ques').bind('change', function() {
+	$('form').eq(0).form('ques').bind('change', function() {
 		if(checkQues()) {
-			$('#reg .error_ques').css('display', 'none')
+			$('#reg .error_ques').hide()
 		}
 	})
 
 	function checkQues() {
-		if($('form').form('ques').value == 0) return true;
+		if($('form').eq(0).form('ques').value == 0) return true;
 	}
 
 	//问题回答验证
-	$('form').form('ans').bind('focus', function() {
-		$('#reg .info_ans').css('display', 'block')
-		$('#reg .error_ans').css('display', 'none')
-		$('#reg .success_ans').css('display', 'none')
+	$('form').eq(0).form('ans').bind('focus', function() {
+		$('#reg .info_ans').show()
+		$('#reg .error_ans').hide()
+		$('#reg .success_ans').hide()
 	}).bind('blur', function() {
 		if(Trim($(this).value()) == '') {
-			$('#reg .info_ans').css('display', 'none')
-			$('#reg .error_ans').css('display', 'none')
-			$('#reg .success_ans').css('display', 'none')
+			$('#reg .info_ans').hide()
+			$('#reg .error_ans').hide()
+			$('#reg .success_ans').hide()
 		} else if(checkAns()) {
-			$('#reg .info_ans').css('display', 'none')
-			$('#reg .error_ans').css('display', 'none')
-			$('#reg .success_ans').css('display', 'block')
+			$('#reg .info_ans').hide()
+			$('#reg .error_ans').hide()
+			$('#reg .success_ans').show()
 		} else {
-			$('#reg .info_ans').css('display', 'none')
-			$('#reg .error_ans').css('display', 'block')
-			$('#reg .success_ans').css('display', 'none')
+			$('#reg .info_ans').hide()
+			$('#reg .error_ans').show()
+			$('#reg .success_ans').hide()
 		}
 	})
 
 	function checkAns() {
-		if($('form').form('ans').value().length >= 2 && $('form').form('ans').value().length <= 32) return true;
+		if($('form').eq(0).form('ans').value().length >= 2 && $('form').eq(0).form('ans').value().length <= 32) return true;
 	}
 
 	// 邮箱验证
-	$('form').form('email').bind('focus', function() {
+	$('form').eq(0).form('email').bind('focus', function() {
 		// 补全界面     如果已经输入到了@就不显示补全界面了
-		if($(this).value().indexOf('@') == -1) $('#reg .all_email').css('display', 'block')
+		if($(this).value().indexOf('@') == -1) $('#reg .all_email').show()
 			// 邮箱验证
-		$('#reg .info_email').css('display', 'block')
-		$('#reg .error_email').css('display', 'none')
-		$('#reg .success_email').css('display', 'none')
+		$('#reg .info_email').show()
+		$('#reg .error_email').hide()
+		$('#reg .success_email').hide()
 	}).bind('blur', function() {
-		$('#reg .all_email').css('display', 'none') // 补全界面
+		$('#reg .all_email').hide() // 补全界面
 
 		if(Trim($(this).value()) == '') {
-			$('#reg .info_email').css('display', 'none')
-			$('#reg .error_email').css('display', 'none')
-			$('#reg .success_email').css('display', 'none')
+			$('#reg .info_email').hide()
+			$('#reg .error_email').hide()
+			$('#reg .success_email').hide()
 		} else if(checkEmail()) {
-			$('#reg .info_email').css('display', 'none')
-			$('#reg .error_email').css('display', 'none')
-			$('#reg .success_email').css('display', 'block')
+			$('#reg .info_email').hide()
+			$('#reg .error_email').hide()
+			$('#reg .success_email').show()
 		} else {
-			$('#reg .info_email').css('display', 'none')
-			$('#reg .error_email').css('display', 'block')
-			$('#reg .success_email').css('display', 'none')
+			$('#reg .info_email').hide()
+			$('#reg .error_email').show()
+			$('#reg .success_email').hide()
 		}
 	})
 
 	function checkEmail() {
-		if(/^[\w\-\.]+@[\w\-]+(\.[a-zA-Z]{2,4}){1,2}$/.test(Trim($('form').form('email').value()))) return true;
+		if(/^[\w\-\.]+@[\w\-]+(\.[a-zA-Z]{2,4}){1,2}$/.test(Trim($('form').eq(0).form('email').value()))) return true;
 	}
 
 	// 邮箱补全系统输入
-	$('form').form('email').bind('keyup', function() {
+	$('form').eq(0).form('email').bind('keyup', function() {
 		if($(this).value().indexOf('@') == -1) { // 实时判断，有@就不显示补全，没有就显示
-			$('#reg .all_email').css('display', 'block');
+			$('#reg .all_email').show();
 			$('#reg .all_email li span').html($(this).value());
 		} else {
-			$('#reg .all_email').css('display', 'none');
+			$('#reg .all_email').hide();
 		}
 
 		if(event.keyCode == 40) { // 下方向按键  通过之前封装event已经做过兼容处理
@@ -315,14 +342,14 @@ $().ready(function() {
 
 		if(event.keyCode == 13) { // 回车键
 			$(this).value($('#reg .all_email li').eq(this.index).text());
-			$('#reg .all_email').css('display', 'none');
+			$('#reg .all_email').hide();
 			this.index = undefined;
 		}
 	})
 
 	// 点击补全选项就获取
 	$('#reg .all_email li').bind('mousedown', function() {
-		$('form').form('email').value($(this).text());
+		$('form').eq(0).form('email').value($(this).text());
 	})
 
 	// 邮箱补全效果的移入移出
@@ -335,9 +362,9 @@ $().ready(function() {
 	})
 
 	//日期部分表单选择
-	var year = $('form').form('year');
-	var month = $('form').form('month');
-	var day = $('form').form('day');
+	var year = $('form').eq(0).form('year');
+	var month = $('form').eq(0).form('month');
+	var day = $('form').eq(0).form('day');
 	var day30 = [4, 6, 9, 11];
 	var day31 = [1, 3, 5, 7, 8, 10, 12];
 	// 注入年
@@ -352,7 +379,7 @@ $().ready(function() {
 	year.bind('change', select_day)
 	month.bind('change', select_day)
 	day.bind('change', function() {
-		if(checkBirthday()) $('#reg .error_birthday').css('display', 'none')
+		if(checkBirthday()) $('#reg .error_birthday').hide()
 
 	})
 
@@ -391,73 +418,102 @@ $().ready(function() {
 	}
 
 	//备注部分
-	$('form').form('ps').bind('keyup', checkPs).bind('paste', function() {
+	$('form').eq(0).form('ps').bind('keyup', checkPs).bind('paste', function() {
 		setTimeout(check_ps, 50); // 解决鼠标右键粘贴后检测字数不执行的问题， 粘贴事件执行时间早，所以当'paste'执行时文字并没有获取到自然无法检测字数，所以让'paste'事件延迟50毫秒
 	})
 
 	// 清尾
 	$('#reg .ps .clear').click(function() {
-		$('form').form('ps').value($('form').form('ps').value().substring(0, 200));
+		$('form').eq(0).form('ps').value($('form').eq(0).form('ps').value().substring(0, 200));
 		checkPs()
 	})
 
 	//检测备注字数的函数
 	function checkPs() {
-		var num = 200 - $('form').form('ps').value().length;
+		var num = 200 - $('form').eq(0).form('ps').value().length;
 		if(num >= 0) {
-			$('#reg .ps').eq(0).css('display', 'block');
+			$('#reg .ps').eq(0).show();
 			$('#reg .ps .num').eq(0).html(num);
-			$('#reg .ps').eq(1).css('display', 'none');
+			$('#reg .ps').eq(1).hide();
 			return true;
 		} else {
-			$('#reg .ps').eq(0).css('display', 'none');
+			$('#reg .ps').eq(0).hide();
 			$('#reg .ps .num').eq(1).html(Math.abs(num)).css('color', 'red');
-			$('#reg .ps').eq(1).css('display', 'block');
+			$('#reg .ps').eq(1).show();
 			return false;
 		}
 	}
 
 	//提交
-	$('form').form('sub').click(function() {
+	$('form').eq(0).form('sub').click(function() {
 		var flag = true;
 		if(!checkUser()) {
-			$('#reg .error_user').css('display', 'block');
+			$('#reg .error_user').html('输入不合法，请重新输入!').show();
 			flag = false;
 		}
 		if(!checkPwd()) {
-			$('#reg .error_pwd').css('display', 'block');
+			$('#reg .error_pwd').show();
 			flag = false;
 		}
 		if(!checkNotepwd()) {
-			$('#reg .error_notpwd').css('display', 'block');
+			$('#reg .error_notpwd').show();
 			flag = false;
 		}
 		if(checkQues()) {
-			$('#reg .error_ques').css('display', 'block');
+			$('#reg .error_ques').show();
 			flag = false;
 		}
 		if(!checkAns()) {
-			$('#reg .error_ans').css('display', 'block');
+			$('#reg .error_ans').show();
 			flag = false;
 		}
 		if(!checkEmail()) {
-			$('#reg .error_email').css('display', 'block');
+			$('#reg .error_email').show();
 			flag = false;
 		}
 		if(!checkBirthday()) {
-			$('#reg .error_birthday').css('display', 'block');
+			$('#reg .error_birthday').show();
 			flag = false;
 		}
 		if(!checkPs()) {
 			flag = false;
 		}
 		if(flag) {
+
+			// 提交注册信息部分
+
+			var _this = this;
+			$('#loading').show().center(200, 40);
+			$('#loading p').html('正在提交注册中...');
+			_this.disabled = true;
+			$(_this).css('backgroundPosition', 'right');
 			ajax({
-				method: 'get',
-				url: '/project/javascript-blog/php/demo.php',
+				method: 'post',
+				url: '/project/javascript-blog/php/add.php',
 				data: $('form').eq(0).serialize(),
 				success: function(data) {
-					alert(data);
+					if(data == 1) {
+						$('#loading').hide()
+						$('#success').show().center(200, 40);
+						$('#success p').html('注册成功!请登录');
+						setTimeout(function() {
+							$('#success').hide().center(200, 40);
+							reg.hide();
+							$('#reg .success').hide();
+							$('form').eq(0).first().reset();
+							_this.disabled = false;
+							$(_this).css('backgroundPosition', 'left');
+							screen.animate({
+								'attr': 'o',
+								'target': 0,
+								'step': 10,
+								fn: function() {
+									screen.unlock();
+								}
+							});
+						}, 1500)
+					};
+
 				},
 				async: true
 			})
@@ -473,7 +529,7 @@ $().ready(function() {
 		}
 	});
 	$('#header .login').click(function() {
-		login.center(350, 250).css('display', 'block');
+		login.center(350, 250).show();
 		screen.lock().animate({
 			'attr': 'o',
 			'target': 40,
@@ -481,7 +537,7 @@ $().ready(function() {
 		});
 	});
 	$('#login .close').click(function() {
-		login.css('display', 'none')
+		login.hide()
 		screen.animate({
 			'attr': 'o',
 			'target': 0,
@@ -491,6 +547,55 @@ $().ready(function() {
 			}
 		});
 	});
+
+	// 用户登录部分
+	$('form').eq(1).form('sub').click(function() {
+		if(/^[\w]{2,20}$/.test(Trim($('form').eq(1).form('user').value())) && $('form').eq(1).form('pwd').value().length >= 6) {
+			var _this = this;
+			$('#loading').show().center(200, 40);
+			$('#loading p').html('正在尝试登录');
+			_this.disabled = true;
+			$(_this).css('backgroundPosition', 'right');
+			ajax({
+				method: 'post',
+				url: '/project/javascript-blog/php/is_login.php',
+				data: $('form').eq(1).serialize(),
+				success: function(data) {
+					$('#loading').hide();
+					if(data == 1) { // 登录失败
+						$('#login .info').html('登录失败：用户名或密码不正确');
+					} else { // 成功
+						$('#login .info').html('');
+						$('#success').show().center(200, 40);
+						$('#success p').html('登录成功，请稍后...');
+						setCookie('user', Trim($('form').eq(1).form('user').value()));
+						setTimeout(function() {
+							$('#success').hide();
+							login.hide();
+							$('form').eq(1).first().reset();
+							screen.animate({
+								'attr': 'o',
+								'target': 0,
+								'step': 10,
+								fn: function() {
+									screen.unlock();
+								}
+							});
+							$(_this).css('backgroundPosition', 'left');
+							$('#header .reg').hide();
+							$('#header .login').hide();
+							$('#header .info').show().html(getCookie('user') + '您好!');
+						}, 1500)
+					}
+					_this.disabled = false;
+
+				},
+				async: true
+			})
+		} else {
+			$('#login .info').html('登录失败!用户名或密码不合法')
+		}
+	})
 
 	//	登录框拖动
 	login.drag($('#login h2').first());
@@ -669,7 +774,7 @@ $().ready(function() {
 
 	// 点击懒加载的图片列表触发的事件
 	$('#photo dl dt img').click(function() {
-		photoBig.center(620, 511).css('display', 'block');
+		photoBig.center(620, 511).show();
 		screen.lock().animate({
 			'attr': 'o',
 			'target': 40,
@@ -717,7 +822,7 @@ $().ready(function() {
 	});
 
 	$('#photo_big .close').click(function() {
-		photoBig.css('display', 'none')
+		photoBig.hide()
 		screen.animate({
 			'attr': 'o',
 			'target': 0,
@@ -840,24 +945,225 @@ $().ready(function() {
 		$('#photo_big .big .left').attr('src', prevImg.src) // 再重新赋值图片左右的src
 		$('#photo_big .big .right').attr('src', nextImg.src)
 		$('#photo_big .big img').attr('index', $(children).index())
-
 		$('#photo_big .big .index').html($(children).index() + 1 + '/' + $('#photo dl dt img').length()); // 图片左下角的索引
 	}
 
-	// 调用ajax
-	//	$(document).click(function(){
-	//		ajax({
-	//			method:'get',
-	//			url:'/project/javascript-blog/php/demo.php',
-	//			data:{
-	//				'name':'tom',
-	//				'age':100
-	//			},
-	//			success:function(data){
-	//				alert(data);
-	//			},
-	//			async:true
-	//		})
-	//	})
+
+	// 发表博文的弹窗
+	var blog = $('#blog')
+	blog.center(580, 320).resize(function() {
+		if(blog.css('display') == 'block') {
+			screen.lock();
+		}
+	});
+	$('#header .member .blog a').click(function() {
+		blog.center(580, 320).show();
+		screen.lock().animate({
+			'attr': 'o',
+			'target': 40,
+			'step': 10
+		});
+	});
+	$('#blog .close').click(function() {
+		blog.hide()
+		screen.animate({
+			'attr': 'o',
+			'target': 0,
+			'step': 10,
+			fn: function() {
+				screen.unlock();
+			}
+		});
+	});	
+//	拖拽
+	blog.drag($('#blog h2').first());
+	
+	$('form').eq(2).form('sub').click(function(){
+		
+		if(Trim($('form').eq(2).form('title').value()).length <= 0 || Trim($('form').eq(2).form('content').value()).length <= 0){
+			$('#blog .info').html('发表失败：标题或内容不能为空！');
+		}else{
+			var _this = this;
+			$('#loading').show().center(200, 40);
+			$('#loading p').html('正在发表博文');
+			_this.disabled = true;
+			$(_this).css('backgroundPosition', 'right');
+			ajax({
+				method: 'post',
+				url: '/project/javascript-blog/php/add_blog.php',
+				data: $('form').eq(2).serialize(),
+				success: function(data) {
+					$('#loading').hide();
+					if(data == 1) { 
+						$('#blog .info').html('');
+						$('#success').show().center(200, 40);
+						$('#success p').html('发表成功，请稍后...');
+						setTimeout(function() {
+							$('#success').hide();
+							$('#blog').hide();
+							$('form').eq(2).first().reset();
+							screen.animate({
+								'attr': 'o',
+								'target': 0,
+								'step': 10,
+								fn: function() {
+									screen.unlock();
+										// 获取博文列表
+										$('#index').html('<span class="loading"></span>');
+										$('#index .loading').show()
+										ajax({
+											method: 'post',
+											url: '/project/javascript-blog/php/get_blog.php',
+											data: {},
+											success: function(data) {
+												$('#index .loading').hide();
+												var json = JSON.parse(data)
+												console.log(json.length)
+												var html = '';
+												for(var i = 0;i < json.length;i++){
+													html += '<div class="content"><h2><em>' + json[i].date + '</em>' + json[i].title + '</h2><p>' + json[i].content + '</p></div>'
+												}
+												$('#index').html(html);
+												for(var i = 0;i < json.length;i++){
+													$('#index .content').eq(i).animate({
+														attr:'o',
+														target:100,
+														t:30,
+														step:10
+													})				
+												}
+											},
+											async: true
+										})
+								}
+							});
+							$(_this).css('backgroundPosition', 'left');
+							_this.disabled = false;
+						}, 1500)
+					}
+					
+
+				},
+				async: true
+			})
+		}
+	})
+	
+	// 获取博文列表
+	$('#index').html('<span class="loading"></span>');
+	$('#index .loading').show()
+	ajax({
+		method: 'post',
+		url: '/project/javascript-blog/php/get_blog.php',
+		data: {},
+		success: function(data) {
+			$('#index .loading').hide();
+			var json = JSON.parse(data)
+			var html = '';
+			for(var i = 0;i < json.length;i++){
+				html += '<div class="content"><h2><em>' + json[i].date + '</em>' + json[i].title + '</h2><p>' + json[i].content + '</p></div>'
+			}
+			$('#index').html(html);
+			for(var i = 0;i < json.length;i++){
+				$('#index .content').eq(i).animate({
+					attr:'o',
+					target:100,
+					t:30,
+					step:10
+				})				
+			}
+		},
+		async: true
+	})
+	
+	
+	// 换肤的弹窗
+	var skin = $('#skin')
+	skin.center(630, 360).resize(function() {
+		if(skin.css('display') == 'block') {
+			screen.lock();
+		}
+	});
+	$('#header .member .sking a').click(function() {
+		skin.center(630, 360).show();
+		screen.lock().animate({
+			'attr': 'o',
+			'target': 40,
+			'step': 10
+		});
+		$('#skin .skin_bg').html('<span class="loading"></span>')
+		ajax({
+			method:'post',
+			url:'/project/javascript-blog/php/get_skin.php',
+			data:{
+				'type':'all'
+			},
+			success:function(data){
+				var json = JSON.parse(data);
+				var html = '';
+				for(var i = 0;i < json.length;i++){
+					html += '<dl><dt><img src="img/' + json[i].small_bg + '" big_bg="' + json[i].big_bg + '" bg_color="' + json[i].bg_color + '"></dt><dd>' + json[i].bg_text +'</dd></dl>'
+				}
+				$('#skin .skin_bg').html(html).opacity(0).animate({
+					attr:'o',
+					target:100,
+					t:30,
+					step:10
+				});
+				$('#skin dl dt img').click(function(){
+					$('body').css('background',$(this).attr('bg_color') + ' ' +  'url(img/' + $(this).attr('big_bg') +') repeat-x')
+						ajax({
+							method:'post',
+							url:'/project/javascript-blog/php/get_skin.php',
+							data:{
+								'type':'set',
+								'big_bg':$(this).attr('big_bg')
+							},
+							success:function(data){
+								$('#success').show().center(200,40);
+								$('#success').html('皮肤更换成功');
+								setTimeout(function(){
+									$('#success').hide();
+								},1500);
+							},
+							async:true
+						})
+				})
+			},
+			async:true
+		})
+	});
+	$('#skin .close').click(function() {
+		skin.hide()
+		screen.animate({
+			'attr': 'o',
+			'target': 0,
+			'step': 10,
+			fn: function() {
+				screen.unlock();
+			}
+		});
+	});	
+//	拖拽
+	skin.drag($('#skin h2').first());
+	
+
+
+
+	// 默认皮肤
+	ajax({
+		method:'post',
+		url:'/project/javascript-blog/php/get_skin.php',
+		data:{
+			'type':'main'
+		},
+		success:function(data){
+			var json = JSON.parse(data)
+			$('body').css('background',json.bg_color + ' ' + 'url(img/' + json.big_bg +') repeat-x');
+			
+		},
+		async:true
+	})
+
 
 })
