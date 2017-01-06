@@ -144,20 +144,101 @@ ie低版本浏览器中这个属性只能获取元素距离父元素的属性，
 
 Base.js存放主要的DOM操作、事件、样式的方法。
 
-#### $() 入口函数
+Base构造函数中有this.elements这个数组，每次获取元素都存放在这个数组中，下面的方法都是遍历这个数组并依次操作每个元素。
+
+所有的方法都放在Base函数的原型上，这样new Base的时候也同时继承了所有方法。
+
+new Base的步骤通过$()就可以实现，因为使用了工厂模式，每次$()都是new了一个新的Base对象，每个Base在内存中是独立的空间所以互不污染。
+
+要实现链式编程，每个方法就要返回的Base对象才能访问Base上的方法,所以方法最后都要return this,因为调用这些方法的肯定是Base对象,那么this指的同样也是Base对象,如果使用DOM对象肯定是无法直接使用这些方法。
+
+如果是某个DOM没法直接访问Base对象的方法。所以要用构造函数去new一个对象。也就是将DOM对象写到$()中。
+
+#### $() Base对象调用
+
+使用：有三种情况，第一种传入选择器`$('#box span')`这是获取id为box的元素下的所有span元素。第二种是传入this`$(this)`。第三种是传入函数`$(function(){})`是入口函数的意思,也就是在DOM加载完之后运行里面的函数。
+
+实现：判断传入参数的数据类型，string为选择器,object为this对象,function是作为入口函数使用。
+
+传入选择器：先判断，如果传入的是多个选择器就把它们存入数组，遍历数组并通过switch语句依次判断是哪种选择器，只支持到id、class、标签。将每次遍历得到的选择器都push到数组中，如果还有下次那么就当做下一个元素的父元素来使用，如果没有下次遍历就将这个数组交给this.elements数组，这就是最后得到的元素，以下的每个方法都会去遍历this.elements数组，从中遍历得到的元素再去操作。如果判断之传入了一个选择器就简单了，直接再用switch判断是哪种选择器然后直接赋值给this.elements即可。
+
+传入的是this对象：将this直接赋值给this.elements[0]。
+
+传入的是函数：调用this.ready(fn),ready方法就是调用的tools.js中的addDomLoaded()方法,直接就创建了一个入口函数。
+
 #### first() 获取第一个元素
+
+使用：`$('div').first()`返回获取到的所有div元素中的第一个。
+
+直接return this.elements[0]。
+
 #### last() 获取最后一个元素
+
+使用：`$('div').last()`返回获取到的所有div元素中的最后一个。
+
+直接return this.elements[this.elements.length - 1]。
+
 #### next() 获取下一个节点
+
+使用：`$('div').next()`返回获取到的所有div元素的下一个元素节点。
+
+通过nextSibling实现的，需要判断如果获取到了文本节点就递归一次，也就是再次nextSibling一次。
+
 #### prev() 获取下一个节点
-#### find() 匹配子节点
-#### getElement() Base对象转换DOM对象
+
+使用：`$('div').prev()`返回获取到的所有div元素的上一个元素节点。
+
+通过previousSibling实现的，需要判断如果获取到了文本节点就递归一次，也就是再次previousSibling一次。
+
+#### getElement(num) Base对象转换DOM对象
+
+使用：`$('div').getElement(0)`返回DOM对象，将获取的所有div元素的第一个返回。
+
+直接return this.elements[num]
+
+#### eq(num) 获取具体的某个节点
+
+使用：`$('div').eq(0)`返回Base对象,将获取的所有的div元素的第一个返回。
+
+获取this.elements中索引为num的那个赋值给临时变量，重置this.elements并将临时变量赋值给this.elements[0]并return。
+
 #### length() 获取某组元素的length
-#### attr() 获取和设置元素的属性、自定义属性
+
+使用：`$('div').length()`返回获取的所有div元素的长度。
+
+直接return this.elements.length
+
+#### attr(attr, value) 获取和设置元素的属性、自定义属性
+
+使用：设置属性`$('img').attr('src','./images/abc.jpg')`设置img元素的src="./images/abc.jpg"并返回Base对象,获取属性`$('img').attr('src')`返回的是img元素的src属性值。
+
+判断参数的length确定是用getAttribute还是setAttribute,如果是getAttribute就直接将获取的值return,不需要链式编程。
+
 #### index() 获取索引值
-#### opacity() 设置元素的透明度
-#### eq() 获取具体的某个节点
-#### addClass() 添加class
+
+使用：`$('#list li').index()`返回id为list元素下的li的索引值
+
+获取每个元素的父节点的所有子节点，遍历所有子节点，return索引值。
+
+#### opacity(num) 设置元素的透明度
+
+使用：`$('#box').opacity(50)`,将id为box的元素的透明度调整为50%，再返回Base对象
+
+通过opacity设置透明度,也设置了filter兼容ie浏览器。
+
+#### addClass(className) 添加class
+
+使用：`$('div').addClass('box1 box2')`将box1和box2作为类名添加给所有div元素,返回Base对象
+
+将传入的参数用split分为数组，遍历这个数组，通过tools.js的hasClass()方法去和每个元素的className判断是否重复，不重复的话就用元素的className+=这个类名。
+
 #### removeClass() 删除class
+
+使用：`$('div').addClass('box1')`将box1类名从所有div元素中删除，返回Base对象
+
+和addClass方法类似，区别是addClass是+=,而删除是先把元素的className赋值给临时变量,判断如果存在就用replace替换为'',将全部替换完的临时变量再赋值会元素的className属性。
+
+
 #### css() 设置和获取元素样式
 #### addRule() 添加style的样式
 #### removeRule() 删除style的样式

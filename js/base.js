@@ -1,23 +1,27 @@
-// Base是一个基础库的核心对象
-// 要实现链式编程，每次要返回的都是Base对象才访问Base自己的方法，如果是某个页面元素没法直接访问Base对象的方法。所以要用构造函数去new一个对象。
+// Base是一个基础库的核心对象,依赖于tools.js,所以要先引tools.js文件.
+
+/* 要实现链式编程，每次要返回的都是Base对象才访问Base自己的方法,所以要做链式编程的方法最后都要return this,因为调用这些方法的肯定是Base对象,
+那么this指的同样也是Base对象,如果使用DOM对象无法直接使用这些方法 */
+
+// 如果是某个DOM没法直接访问Base对象的方法。所以要用构造函数去new一个对象。也就是将DOM对象写到$()中。
 
 // 前台调用
 // 每次调用$()都相当于创建了一个新的Base实例。方法之间不会相互污染。
-var $ = function(args) {
+var $ = function(args) {			// 形参args有多种情况，具体会在下面判断.
 	return new Base(args);
 }
 
 /*
  * 基础库
  * this.elements数组，用于保存html节点
- * 传入参数类名是string时便为css选择器。
+ * 传入参数数据类型是string时便为css选择器。
  * 传入参数是对象时则为this。
  * 传入参数是函数时，起到的是入口函数的作用。
  */
 function Base(args) {
 	this.elements = [];
-
-	if(typeof args == 'string') { // 传入的是选择器
+	// 传入的是选择器
+	if(typeof args == 'string') { 
 		if(args.indexOf(' ') != -1) {
 			var elements = args.split(' '), // 将$('#id class tag')这种形式的选择器分割为elements数组。也就是我传入的选择器的数组
 				childElements = [], // 存放临时节点对象的数组。
@@ -92,7 +96,6 @@ Base.prototype.last = function() {
 
 // 获取当前节点的下一个节点
 Base.prototype.next = function() {
-
 	for(var i = 0; i < this.elements.length; i++) {
 		this.elements[i] = this.elements[i].nextSibling;
 		if(this.elements[i] == null) throw new Error('没有下一个节点');
@@ -256,7 +259,7 @@ Base.prototype.removeClass = function(className) {
 				str = str.replace(new RegExp('(\\s|^)' + classArr[j] + '(\\s|$)'), '')
 			}
 		}
-		this.elements[i].className = str
+		this.elements[i].className = str;
 	}
 	return this;
 }
