@@ -6,10 +6,11 @@
 
 
 // 检测浏览器版本
+// 该方法为加载自调用，使用时只需要使用sys.浏览器名 即可，sys是全局属性。
 // window.sys.chrome
 (function () {
     window.sys = {};        // 为了让获取的浏览器信息能够全局访问。
-    var ua = window.navigator.userAgent.toLocaleLowerCase(),
+    var ua = window.navigator.userAgent.toLocaleLowerCase(),	// 获取浏览器信息并转为小写
         s;
     (s = ua.match(/msie ([\d.]+)/)) ? sys.ie = s[1] :       // match返回的是数组s[0]是浏览器名称，s[1]是浏览器版本，而浏览器名称我们通过sys对象的属性来表示那么值自然是浏览器的版本。
         (s = ua.match(/firefox\/([\d.]+)/)) ? sys.firefox = s[1] :
@@ -46,7 +47,7 @@ function addDomLoaded(fn) {
 
     function doReady() {        // 运行到这个函数说明DOM加载完毕，先清除定时器，再执行传入的执行程序。
         if (timer) clearInterval(timer);
-        if (isReady) return;
+        if (isReady) return;	// 如果是false就向下执行函数，为true说明已经执行过函数了
         isReady = true;
         fn();
     }
@@ -72,6 +73,7 @@ function addDomLoaded(fn) {
 // 获取浏览器窗口的尺寸
 // getInner().wdith
 function getInner() {
+	// 如果浏览器支持innerWidth就用window.innerWidth，否则就用document.documentElement.clientWidth。
     if (typeof window.innerWidth != 'undefined') {      // inner是兼容firefox浏览器
         return {
             width: window.innerWidth,
@@ -87,6 +89,7 @@ function getInner() {
 
 
 // 滚动条卷曲值工具
+// getScroll().top
 function getScroll(){
     return {
         top:document.documentElement.scrollTop || document.body.scrollTop,
@@ -105,6 +108,7 @@ function getStyle(element, attr) {
     return value;
 }
 
+
 // 检测是否有重复class名
 // hasClass(div,'box')
 function hasClass(element, className) {
@@ -112,7 +116,7 @@ function hasClass(element, className) {
 }
 
 // 添加link规则的兼容性处理
-// insertRule(0,div,height:10px,0)
+// insertRule(document.styleSheets[0],div,height:10px,0)
 // 这个方法是最近才知道的，感觉应用场景不多，而且要慎用，用这个style的层次应该会挺乱的。
 function insertRule(sheet, selectorText, cssText, position) {
     if (sheet.insertRule) {             // W3C标准的用法
@@ -132,7 +136,7 @@ function deleteRule(sheet, index) {
     }
 }
 
-//获取Event对象
+// 获取Event对象
 //function getEvent(event) {
 //  return event || window.event;
 //}
@@ -152,7 +156,7 @@ function deleteRule(sheet, index) {
 
 
 // 绑定事件的兼容性处理
-// addEvent(div,click,function(){alert(1)})
+// addEvent(div,'click',function(){alert(1)})
 /*
  * 主要为了解决ie8浏览器的兼容性问题。
  * 1、ie8浏览器事件触发顺序相反。
@@ -233,7 +237,7 @@ addEvent.equal = function (es, fn) {
 }
 
 // 删除事件的兼容性处理
-// removeEvent(div,click,function(){})
+// removeEvent(div,'click',function(){})
 function removeEvent(obj, type, fn) {
     if (typeof obj.removeEventListener != 'undefined') {
         obj.removeEventListener(type, fn, false);
