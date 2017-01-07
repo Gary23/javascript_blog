@@ -57,7 +57,7 @@ ie浏览器使用element.currentStyle
 
 #### insertRule(sheet, selectorText, cssText, position) 添加style标签内的样式
 
-使用：`insertRule(document.styleSheets[0],div,'height:10px',0)`,在第一个style标签新建 `div{height:10px;}`的样式
+使用：`insertRule(document.styleSheets[0],'div','height:10px',0)`,在第一个style标签新建 `div{height:10px;}`的样式
 
 在style标签中插入一条样式，用的时候需要小心。不要破坏css层级关系。
 
@@ -156,7 +156,7 @@ new Base的步骤通过$()就可以实现，因为使用了工厂模式，每次
 
 #### $() Base对象调用
 
-使用：有三种情况，第一种传入选择器`$('#box span')`这是获取id为box的元素下的所有span元素。第二种是传入this`$(this)`。第三种是传入函数`$(function(){})`是入口函数的意思,也就是在DOM加载完之后运行里面的函数。
+使用：有三种情况，第一种传入选择器`$('#box span')`这是获取#box的元素下的所有span元素。第二种是传入this`$(this)`。第三种是传入函数`$(function(){})`是入口函数的意思,也就是在DOM加载完之后运行里面的函数。
 
 实现：判断传入参数的数据类型，string为选择器,object为this对象,function是作为入口函数使用。
 
@@ -216,13 +216,13 @@ new Base的步骤通过$()就可以实现，因为使用了工厂模式，每次
 
 #### index() 获取索引值
 
-使用：`$('#list li').index()`返回id为list元素下的li的索引值
+使用：`$('#list li').index()`返回#list元素下的li的索引值
 
 获取每个元素的父节点的所有子节点，遍历所有子节点，return索引值。
 
 #### opacity(num) 设置元素的透明度
 
-使用：`$('#box').opacity(50)`,将id为box的元素的透明度调整为50%，再返回Base对象
+使用：`$('#box').opacity(50)`,将#list的元素的透明度调整为50%，再返回Base对象
 
 通过opacity设置透明度,也设置了filter兼容ie浏览器。
 
@@ -234,30 +234,175 @@ new Base的步骤通过$()就可以实现，因为使用了工厂模式，每次
 
 #### removeClass() 删除class
 
-使用：`$('div').addClass('box1')`将box1类名从所有div元素中删除，返回Base对象
+使用：`$('div').removeClass('box1')`将box1类名从所有div元素中删除，返回Base对象
 
 和addClass方法类似，区别是addClass是+=,而删除是先把元素的className赋值给临时变量,判断如果存在就用replace替换为'',将全部替换完的临时变量再赋值会元素的className属性。
 
 
-#### css() 设置和获取元素样式
-#### addRule() 添加style的样式
-#### removeRule() 删除style的样式
-#### html() 获取元素内容
-#### text() 获取元素文本内容
-#### form() 设置表单字段
-#### value() 获取和设置表单字段内容
-#### center() 元素居中
+#### css(attr, value) 设置和获取元素样式
+
+使用：设置css样式`$('div').css('height','100px')`设置所有div元素的height为100px或`$('div').css({'height':'100px','width':100px)`同时设置所有div元素的height和width为100px,最后返回Base对象。获取元素属性值:`$('div').css('height')`返回第一个div元素的height属性值。
+
+判断参数如果是object那么就是同时设置多个css样式，for...in遍历参数并分别对元素设置。
+
+如果参数不是object并且有两个那么就是只设置一个css属性。不用遍历直接设置。
+
+如果参数不是object只有一个，那就是获取属性值，直接return遍历中的第一个this.elements。
+
+#### addRule(num, selectorText, cssText, position) 添加style的样式
+
+使用：`addRule(0,'div'.eq(0),'height:200px',0)`在页面中第一个style标签中的第一条前插入div{height:200px;},返回Base对象
+
+在内部调用了tools.js的insertRule()方法。参数num指的是页面中style标签的位置，position是插入位置。
+
+#### removeRule(num, index) 删除style的样式
+
+使用：`removeRule(0,0)`删除页面中第一个style标签中的第一条样式,返回Base对象
+
+在内部调用了tools.js的deleteRule()方法。参数num指的是页面中style标签的位置，index是删除的索引。
+
+#### html(str) 获取元素内容
+
+使用：获取内容`$('div').html()`返回第一个div标签的所有内容,设置内容`$('div').html('<p>这是一个段落</p>')`设置所有div标签的内容为<p>这是一个段落</p>,会覆盖原来的内容,返回Base对象。
+
+判断没有参数来确定是获取还是设置,使用innerHTML设置元素的内容。
+
+#### text(str) 获取元素文本内容
+
+使用：获取文本`$('p').text()`返回第一个p标签的文本内容,设置文本`$('p').text('这是一个段落')`将所有p标签的文本设置为这是一个段落,返回Base对象
+
+判断没有参数来确定是获取还是设置,获取就直接return tools.js中的getInnerText()方法的返回值,设置就调用getInnerText()方法
+
+#### form(name) 设置表单字段
+
+使用：`$('#reg').form('user')`返回#reg的元素的name属性为user的表单元素,#reg必须是form元素。
+
+#### value(str) 获取和设置表单字段内容
+
+使用：获取value`$('#reg').form('user').value()`返回上一个方法的表单的内容。设置value`$('#reg').form('user').value('请输入用户名')`将上一个方法的表单的内容设置为请输入用户名,返回Base对象.
+
+实现方法和html相同只是用的不是innerHTML而是value，并且只能用于表单元素。
+
+#### center(width, height) 元素居中
+
+使用：`$('#screen').center(200,50)`将#screen元素设置为全窗口居中,该元素必须是定位的,返回Base对象。
+
+设置元素的left值和top值,以top为例,调用tools.js的getInner()方法和getScroll()方法,(getInner().height - height) / 2 + getScroll().top;
+
 #### show() 元素显示
+
+使用：`$('#screen').show()`将#screen元素显示出来,返回Base对象。
+
+内部做了display:block。
+
 #### hide() 元素隐藏
+
+使用：`$('#screen').hide()`将#screen元素隐藏,返回Base对象。
+
+内部做了display:none。
+
 #### lock() 全屏遮罩层
+
+使用：`$('#lock').lock()`将#lock元素作为一个覆盖全屏的遮罩层,一般用作弹出窗口的背景使用,返回Base对象。
+
+调用tools.js的getInner()方法和getScroll()方法,遮罩层元素的宽高为两个方法之和,设置display:block,overflow:hidden,阻止mousedown、mouseup、selectstart三个事件的默认行为。
+
 #### unlock() 取消遮罩层
+
+使用：`$('#lock').unlock()`将#lock元素关闭遮罩层,返回Base对象。
+
+设置display:none,overflow:auto,阻止mousedown、mouseup、selectstart三个事件的默认行为。
+
 #### toggle() 点击切换的方法
-#### bind() 事件发生器
-#### hover() 鼠标移入移出事件
-#### click() 单机事件
-#### resize() 浏览器改变窗口尺寸事件
 
+使用：`$('#sidebar h2').toggle(function(){alert(1)},function(){alert(2)},function(){alert(3)})`第一次点击#sidebar元素下的所有h2元素实现弹出1,第二次点击弹出2,第三次点击弹出3,如此循环,所以这个方法可以传入多个函数,并且一次循环执行,返回Base对象。
 
+函数内部是一个闭包自调用函数,因为每个元素要存储独立的计数器并且第二次调用函数计数器不能清零,所以使用闭包,假设传入了三个函数,用(计数器++ % arguments.length)得出的就是0、1、2、0、1、2,如此循环的调用传入的函数并动态改变this指向为调用该方法的元素。
+
+#### bind(event, fn) 事件发生器
+
+使用：`$('#sidebar h2').bind('click',function(){alert(1)})`给#sidebar元素下的所有h2元素设置点击弹出框1,返回Base对象
+
+函数内部就是一次调用的tools.js的addEvent()方法。
+
+#### hover(overFn, outFn) 鼠标移入移出事件
+
+使用：`$('#sidebar h2').hover(function(){alert(1)},function(){alert(2)})`将鼠标移入#sidebar元素下的所有h2元素就会弹出框1,移出就弹出框2,返回Base对象。
+
+这个参数只能传入两个函数,第一个函数执行mouseover也就是移入,第二个函数执行mouseout也就是移出。
+
+#### click(fn) 单机事件
+
+使用：`$('#sidebar h2').click(function(){alert(1)})`点击#sidebar元素下的所有h2元素会弹出框1,返回Base对象。
+
+内部调用了tools.js的addEvent()方法。因为click事件用的比较多所以单独封装了,其实用bind也可以。
+
+#### resize(fn) 浏览器改变窗口尺寸事件
+
+使用：`$('#login').resize(function(){})`改变浏览器窗口大小的时候也同时改变#login元素的位置,并执行传入的函数,主要用于弹出框,返回Base对象。
+
+内部调用addEvent()函数,传入window和resize事件。并且调用getInner()获取全屏尺寸和getScroll()卷曲值。
+
+当弹出框靠在浏览器的边缘,浏览器由大缩小时,不让弹出框隐藏到看不到的区域,通过判断element.offsetLeft > getInner().width + getScroll().left - element.offsetWidth,设置弹出框的left值,top也相同。
+
+当浏览器窗口大小小于弹出框的长宽时,保证弹出框能由上由左显示、隐藏下部和右部。通过判断element.offsetLeft <= 0 + getScroll().left确定弹出框的left值,top也一样。
+
+#### animate(obj) 运动动画方法
+
+使用：`$('#box').animate({attr:'top',target:300,})` 设置#box元素移动到top值为300px的位置上,返回Base对象。
+
+传入的参数都为对象形式。具体属性如下:
+
+设置left和top确定横移还是竖移,step要传正值,通过target的值确定具体方向
+
+'attr'   
+- 'x'表示横轴运动'y'还是纵轴运动 ,'x'代表left,'y'代表top,也可以直接传'left'和'top'。
+- 'w'表示设置宽'h'表示设置高,'w'代表'width','h'代表'height',也可以直接传'width'和'height'。
+- 'o'表示opacity,也可以直接传'opacity'。
+- 也可以直接传正常的属性,比如fontSize,如果什么都没传默认left。只要单位是'px'的都可以。
+
+'start'  
+- 传入值为数值，表示属性开始的位置，默认值getStyle(element, attr)。
+
+'t'      
+- 传入值为毫秒值，表示定时器刷新时间间隔，默认值17。
+
+'step'   
+- 传入值每次移动的距离值，默认值10。
+
+'target' 
+- 传入运动的目标位置，默认值start+alter。
+- 整个插件target和alter两个参与必须传一个，否则报错。
+
+'alter'  
+- 传入增量，也就是比start的位置增加的距离，这个没有默认值。
+- 整个插件target和alter两个参与必须传一个，否则报错。
+
+'speed'  
+- 传入运动的速度，主要在缓动的时候用到，默认值为6。值越大速度越慢。
+
+'type'   
+- 传入0或1,0代表匀速运动constant，匀速运动就是每次前进的值为step的固定值。
+- 传入1代表缓动buffer。缓动就是先快后慢。
+
+'fn'
+- 值为一个函数,当第一个动画执行完毕之后就执行这个函数。
+
+'mul'
+- 是一个对象形式的参数,内部可以传入属性和属性值。
+- 这里只能传入正常的属性不能和'attr'属性那样简写。只要单位是'px'的属性都可以。属性值不用带单位。
+- 可以设置多个属性同时动画。
+
+动画队列:
+
+- 一个动画结束后再继续执行下一个动画，就像排队执行，只需要传参数时设置一个fn属性，值为下一个动画即可。
+- 具体实现的时候，在getTarget和getOpacity内部最后运行fn参数即可。因为能进入到这两个函数就说明第一个动画已经执行完毕了。
+
+同步动画:
+
+- 和动画队列不同，同步动画主要是指不同动画同时执行，通过传入mul函数达到目的，mul是个对象，内部可以传入属性和属性值，例如width:100,height:100;
+- 属性只能传css的属性，在运动之前会遍历mul，取出属性和属性值来用。属性当做attr用，属性值当做target来用。
+- 进入定时器之前先判断下mul有效性，如果没传的话就将创建一个。以防止单独传值只运行一个动画时出错。
 
 
 ## 插件部分

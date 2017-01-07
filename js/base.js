@@ -407,6 +407,7 @@ Base.prototype.toggle = function() {
 		(function(element, args) { // 使用闭包可以让每个调用这个方法的对象独享count计数器，可以按照计数器的顺序执行传入的函数，如果共享计数器会出现问题，那么执行函数的顺序就乱了
 			var count = 0;
 			addEvent(element, 'click', function() {
+				console.log(this);
 				args[count++ % args.length].call(this); // 让count在0至args.length之间循环。call是为了将this(this.elements[i])返回
 			});
 		})(this.elements[i], arguments);
