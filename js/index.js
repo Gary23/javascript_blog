@@ -87,7 +87,7 @@ $().ready(function() {
 				} else {
 					ajax({
 						method: 'post',
-						url: '/project/javascript-blog/php/is_user.php',
+						url: '/project/javascript_blog/php/is_user.php',
 						data: $('form').eq(0).serialize(),
 						success: function(data) {
 							if(data == 1) {
@@ -489,7 +489,7 @@ $().ready(function() {
 			$(_this).css('backgroundPosition', 'right');
 			ajax({
 				method: 'post',
-				url: '/project/javascript-blog/php/add.php',
+				url: '/project/javascript_blog/php/add.php',
 				data: $('form').eq(0).serialize(),
 				success: function(data) {
 					if(data == 1) {
@@ -558,7 +558,7 @@ $().ready(function() {
 			$(_this).css('backgroundPosition', 'right');
 			ajax({
 				method: 'post',
-				url: '/project/javascript-blog/php/is_login.php',
+				url: '/project/javascript_blog/php/is_login.php',
 				data: $('form').eq(1).serialize(),
 				success: function(data) {
 					$('#loading').hide();
@@ -990,7 +990,7 @@ $().ready(function() {
 			$(_this).css('backgroundPosition', 'right');
 			ajax({
 				method: 'post',
-				url: '/project/javascript-blog/php/add_blog.php',
+				url: '/project/javascript_blog/php/add_blog.php',
 				data: $('form').eq(2).serialize(),
 				success: function(data) {
 					$('#loading').hide();
@@ -1013,7 +1013,7 @@ $().ready(function() {
 										$('#index .loading').show()
 										ajax({
 											method: 'post',
-											url: '/project/javascript-blog/php/get_blog.php',
+											url: '/project/javascript_blog/php/get_blog.php',
 											data: {},
 											success: function(data) {
 												$('#index .loading').hide();
@@ -1021,6 +1021,7 @@ $().ready(function() {
 												console.log(json.length)
 												var html = '';
 												for(var i = 0;i < json.length;i++){
+													json[i].content = json[i].content.replace(/\n/g, '<br/>');
 													html += '<div class="content"><h2><em>' + json[i].date + '</em>' + json[i].title + '</h2><p>' + json[i].content + '</p></div>'
 												}
 												$('#index').html(html);
@@ -1054,13 +1055,15 @@ $().ready(function() {
 	$('#index .loading').show()
 	ajax({
 		method: 'post',
-		url: '/project/javascript-blog/php/get_blog.php',
+		url: '/project/javascript_blog/php/get_blog.php',
 		data: {},
 		success: function(data) {
 			$('#index .loading').hide();
 			var json = JSON.parse(data)
 			var html = '';
 			for(var i = 0;i < json.length;i++){
+				json[i].content = json[i].content.replace(/\n/g, '<br/>');
+				console.log(json[i])
 				html += '<div class="content"><h2><em>' + json[i].date + '</em>' + json[i].title + '</h2><p>' + json[i].content + '</p></div>'
 			}
 			$('#index').html(html);
@@ -1084,7 +1087,7 @@ $().ready(function() {
 			screen.lock();
 		}
 	});
-	$('#header .member .sking a').click(function() {
+	$('#header .member .skin a').click(function() {
 		skin.center(630, 360).show();
 		screen.lock().animate({
 			'attr': 'o',
@@ -1094,7 +1097,7 @@ $().ready(function() {
 		$('#skin .skin_bg').html('<span class="loading"></span>')
 		ajax({
 			method:'post',
-			url:'/project/javascript-blog/php/get_skin.php',
+			url:'/project/javascript_blog/php/get_skin.php',
 			data:{
 				'type':'all'
 			},
@@ -1114,7 +1117,7 @@ $().ready(function() {
 					$('body').css('background',$(this).attr('bg_color') + ' ' +  'url(img/' + $(this).attr('big_bg') +') repeat-x')
 						ajax({
 							method:'post',
-							url:'/project/javascript-blog/php/get_skin.php',
+							url:'/project/javascript_blog/php/get_skin.php',
 							data:{
 								'type':'set',
 								'big_bg':$(this).attr('big_bg')
@@ -1153,7 +1156,7 @@ $().ready(function() {
 	// 默认皮肤
 	ajax({
 		method:'post',
-		url:'/project/javascript-blog/php/get_skin.php',
+		url:'/project/javascript_blog/php/get_skin.php',
 		data:{
 			'type':'main'
 		},

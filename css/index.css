@@ -8,236 +8,260 @@ h4,
 ul,
 dl,
 dd,
-p{
-    margin: 0;
-    padding: 0;
-    font-size: 12px;
-    font-family: "microsoft yahei";
-    color: #333;
+p {
+	margin: 0;
+	padding: 0;
+	font-size: 12px;
+	font-family: "microsoft yahei";
+	color: #333;
 }
+
 body {
 	/*background: #E7E9E8 url(../img/bg1.jpg) repeat-x;*/
 	background: none;
 }
 
 ul li {
-    list-style: none;
+	list-style: none;
 }
 
 input {
-    border: none;
+	border: none;
 }
 
 a {
-    text-decoration: none;
-    color: #333;
+	text-decoration: none;
+	color: #333;
 }
 
-/*头部*/
 
+/*头部*/
 
 #header_bg {
 	width: auto;
 	background: url(../img/header_bg.png) repeat-x;
 }
+
 #header {
-    width: 1000px;
-    height: 30px;
-    margin: 0 auto;
-    /*overflow: hidden;*/
-   
+	width: 1000px;
+	height: 30px;
+	margin: 0 auto;
+	/*overflow: hidden;*/
 }
 
 #header .logo {
-    
-    width: 100px;
-    height: 30px;
-    float: left;
+	width: 100px;
+	height: 30px;
+	float: left;
 }
 
 #header .logo img {
-    display: block;
-    height: 30px;
+	display: block;
+	height: 30px;
 }
 
 #header .member {
-    
-    width: 70px;
-    /*height: 30px;*/
-    line-height: 30px;
-    float: right;
-    font-size: 14px;
-    letter-spacing: 2px;
-    background: url(../img/arrow.png) no-repeat 95% center;
-    cursor: pointer;
-    position: relative;
-    padding: 0 10px;
+	width: 70px;
+	/*height: 30px;*/
+	line-height: 30px;
+	float: right;
+	font-size: 14px;
+	letter-spacing: 2px;
+	background: url(../img/arrow.png) no-repeat 95% center;
+	cursor: pointer;
+	position: relative;
+	padding: 0 10px;
 }
 
 #header ul {
-    position: absolute;
-    top: 30px;
-    left: 0px;
-    background-color: #FBF7E1;
-    width: 90px;
-    height: 0px;
-    border: 1px solid #999;
-    border-top: none;
-    display: none;
-    opacity: 0.3;
-    filter: Alpha(Opacity=100);
-    overflow: hidden;
+	position: absolute;
+	top: 30px;
+	left: 0px;
+	background-color: #FBF7E1;
+	width: 90px;
+	height: 0px;
+	border: 1px solid #999;
+	border-top: none;
+	display: none;
+	opacity: 0.3;
+	filter: Alpha(Opacity=100);
+	overflow: hidden;
 }
 
 #header ul li {
-    height: 25px;
-    line-height: 25px;
-    text-indent: 25px;
-    letter-spacing: 2px;
+	height: 25px;
+	line-height: 25px;
+	text-indent: 25px;
+	letter-spacing: 2px;
 }
 
 #header ul li a {
-    display: block;
-    text-decoration: none;
-    color: #333333;
-    background: url(../img/arrow3.gif) no-repeat 5px center;
+	display: block;
+	text-decoration: none;
+	color: #333333;
+	background: url(../img/arrow3.gif) no-repeat 5px center;
 }
 
 #header ul li a:hover {
-    background: #fc0 url(../img/arrow4.gif) no-repeat 5px center;
+	background: #fc0 url(../img/arrow4.gif) no-repeat 5px center;
 }
 
-#header .login,#header .reg,#header .info {
-    float: right;
-    margin-right: 20px;
-    width: 35px;
-    height: 30px;
-    line-height: 30px;
-    font-size: 14px;
-    letter-spacing: 2px;
-    cursor: pointer;
+#header .login,
+#header .reg,
+#header .info {
+	float: right;
+	margin-right: 20px;
+	width: 35px;
+	height: 30px;
+	line-height: 30px;
+	font-size: 14px;
+	letter-spacing: 2px;
+	cursor: pointer;
 }
 
-#header .info{
+#header .info {
 	width: auto;
 	display: none;
 }
 
-/*注册部分*/
-#reg {
-    width: 600px;
-    height: 550px;
-    border: 1px solid #ccc;
-    position: absolute;
-    display: none;
-    z-index: 9999;
-    background: #FFFFFF;
 
+/*注册部分*/
+
+#reg {
+	width: 600px;
+	height: 550px;
+	border: 1px solid #ccc;
+	position: absolute;
+	display: none;
+	z-index: 9999;
+	background: #FFFFFF;
 }
 
 #reg h2 {
-    height: 40px;
-    line-height: 40px;
-    text-align: center;
-    font-size: 14px;
-    letter-spacing: 2px;
-    color: #666;
-    background: url(../img/login_header.png) repeat-x;
-    border-bottom: 1px solid #CCCCCC;
-    position: relative;
-    cursor: default;
-    margin-bottom: 20px;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	font-size: 14px;
+	letter-spacing: 2px;
+	color: #666;
+	background: url(../img/login_header.png) repeat-x;
+	border-bottom: 1px solid #CCCCCC;
+	position: relative;
+	cursor: default;
+	margin-bottom: 20px;
 }
+
 #reg h2 img {
-    /*float: right;*/
-    position: absolute;
-    top: 13px;
-    right: 13px;
-    cursor: pointer;
+	/*float: right;*/
+	position: absolute;
+	top: 13px;
+	right: 13px;
+	cursor: pointer;
 }
+
 
 /*注册的表单部分*/
-#reg dl{
-    font-size: 14px;
-    color: #333333;
-    margin: 20px;
-    padding: 0 0 0 10px;
-    position: relative;
-}
-#reg dl dd {
-    height: 30px;
-    padding: 5px 0;
-}
-#reg dl dd input.text,#reg dl dd select{
-    width: 200px;
-    height: 25px;
-    border: 1px solid #CCCCCC;
-    background: #fff;
-    font-size: 14px;
-    color: #999;
-}
-#reg dl dd select {
-    width: 200px;
-}
-#reg dl dd.birthday select {
-    width: 60px;
-}
-#reg dl dd textarea {
-    width: 360px;
-    height: 100px;
-    background: #ffffff;
-    resize: none;
-}
-#reg dl dd input.submit{
-    width: 143px;
-    height: 33px;
-    background: url(../img/reg.png) no-repeat left;
-    cursor: pointer;
-}
-/*密码验证公共部分*/
-#reg dl dd span.info,#reg dl dd span.error,#reg dl dd span.success {
-    width: 165px;
-    height: 32px;
-    line-height: 32px;
-    display: inline-block;
-    font-size: 12px;
-    color: #333;
-    padding: 0 0 0 35px;
-    position: absolute;
-    display: none;
-}
-#reg dl dd span.info {
-    background: url(../img/reg_info.png) no-repeat;
 
+#reg dl {
+	font-size: 14px;
+	color: #333333;
+	margin: 20px;
+	padding: 0 0 0 10px;
+	position: relative;
 }
-#reg dl dd span.error {
-    background: url(../img/reg_error.png) no-repeat;
+
+#reg dl dd {
+	height: 30px;
+	padding: 5px 0;
 }
+
+#reg dl dd input.text,
+#reg dl dd select {
+	width: 200px;
+	height: 25px;
+	border: 1px solid #CCCCCC;
+	background: #fff;
+	font-size: 14px;
+	color: #999;
+}
+
+#reg dl dd select {
+	width: 200px;
+}
+
+#reg dl dd.birthday select {
+	width: 60px;
+}
+
+#reg dl dd textarea {
+	width: 360px;
+	height: 100px;
+	background: #ffffff;
+	resize: none;
+}
+
+#reg dl dd input.submit {
+	width: 143px;
+	height: 33px;
+	background: url(../img/reg.png) no-repeat left;
+	cursor: pointer;
+}
+
+
+/*密码验证公共部分*/
+
+#reg dl dd span.info,
+#reg dl dd span.error,
 #reg dl dd span.success {
-    height: 14px;
-    line-height: 14px;
-    background: url(../img/reg_succ.png) no-repeat;
-    padding: 0 0 0 20px;
-    color: green;
+	width: 165px;
+	height: 32px;
+	line-height: 32px;
+	display: inline-block;
+	font-size: 12px;
+	color: #333;
+	padding: 0 0 0 35px;
+	position: absolute;
+	display: none;
 }
+
+#reg dl dd span.info {
+	background: url(../img/reg_info.png) no-repeat;
+}
+
+#reg dl dd span.error {
+	background: url(../img/reg_error.png) no-repeat;
+}
+
+#reg dl dd span.success {
+	height: 14px;
+	line-height: 14px;
+	background: url(../img/reg_succ.png) no-repeat;
+	padding: 0 0 0 20px;
+	color: green;
+}
+
 
 /*用户名验证*/
+
 #reg dl dd span.info_user {
-    padding-top: 7px;
-    height: 43px;
-    line-height: 18px;
-    top: 3px;
-    left: 295px;
-    background: url(../img/reg_info2.png) no-repeat;
+	padding-top: 7px;
+	height: 43px;
+	line-height: 18px;
+	top: 3px;
+	left: 295px;
+	background: url(../img/reg_info2.png) no-repeat;
 }
+
 #reg dl dd span.error_user {
-    top: 3px;
-    left: 295px;
+	top: 3px;
+	left: 295px;
 }
+
 #reg dl dd span.success_user {
-    top: 12px;
-    left: 295px;
+	top: 12px;
+	left: 295px;
 }
+
 #reg dl dd span.loading {
 	position: absolute;
 	top: 10px;
@@ -245,304 +269,352 @@ a {
 	font-size: 12px;
 	background: url(../img/loading2.gif) no-repeat;
 	text-indent: 22px;
-	padding: 1px 0 0 0 ;
+	padding: 1px 0 0 0;
 	display: none;
 }
+
+
 /*密码验证*/
+
 #reg dl dd span.info_pwd {
-    width: 244px;
-    height: 106px;
-    padding: 4px 0 0 16px;
-    top: 46px;
-    left: 295px;
-    background: url(../img/reg_info3.png) no-repeat;
-    letter-spacing: 0;
-}
-#reg dl dd span.info_pwd p {
-    height: 25px;
-    line-height: 25px;
-    color: #666666;
-}
-#reg dl dd span.info_pwd p strong.s {
-    color: #cccccc;
-}
-#reg dl dd span.error_pwd {
-    top: 43px;
-    left: 295px;
-}
-#reg dl dd span.success_pwd {
-    top: 52px;
-    left: 295px;
-}
-/*确认密码验证*/
-#reg dl dd span.info_notpwd{
-    top: 83px;
-    left: 295px;
-}
-#reg dl dd span.success_notpwd{
-    top: 92px;
-    left: 295px;
-}
-#reg dl dd span.error_notpwd{
-    top: 83px;
-    left: 295px;
+	width: 244px;
+	height: 106px;
+	padding: 4px 0 0 16px;
+	top: 46px;
+	left: 295px;
+	background: url(../img/reg_info3.png) no-repeat;
+	letter-spacing: 0;
 }
 
-#reg dl dd span.error_ques{
-    top: 123px;
-    left: 295px;
+#reg dl dd span.info_pwd p {
+	height: 25px;
+	line-height: 25px;
+	color: #666666;
 }
+
+#reg dl dd span.info_pwd p strong.s {
+	color: #cccccc;
+}
+
+#reg dl dd span.error_pwd {
+	top: 43px;
+	left: 295px;
+}
+
+#reg dl dd span.success_pwd {
+	top: 52px;
+	left: 295px;
+}
+
+
+/*确认密码验证*/
+
+#reg dl dd span.info_notpwd {
+	top: 83px;
+	left: 295px;
+}
+
+#reg dl dd span.success_notpwd {
+	top: 92px;
+	left: 295px;
+}
+
+#reg dl dd span.error_notpwd {
+	top: 83px;
+	left: 295px;
+}
+
+#reg dl dd span.error_ques {
+	top: 123px;
+	left: 295px;
+}
+
 
 /*问题回答部分验证*/
-#reg dl dd span.info_ans{
-    top: 163px;
-    left: 295px;
+
+#reg dl dd span.info_ans {
+	top: 163px;
+	left: 295px;
 }
-#reg dl dd span.success_ans{
-    top: 172px;
-    left: 295px;
+
+#reg dl dd span.success_ans {
+	top: 172px;
+	left: 295px;
 }
-#reg dl dd span.error_ans{
-    top: 163px;
-    left: 295px;
+
+#reg dl dd span.error_ans {
+	top: 163px;
+	left: 295px;
 }
+
 
 /*邮箱验证*/
-#reg dl dd span.info_email{
-    top: 203px;
-    left: 295px;
-}
-#reg dl dd span.success_email{
-    top: 212px;
-    left: 295px;
-}
-#reg dl dd span.error_email{
-    top: 203px;
-    left: 295px;
-}
-#reg dl dd ul.all_email {
-    width: 180px;
-    height: 202px;
-    background: white;
-    padding: 5px 10px;
-    position: absolute;
-    top: 233px;
-    left: 70px;
-    border: 1px solid #cccccc;
-    display: none;
-}
-#reg dl dd ul.all_email li {
-    height: 25px;
-    line-height: 25px;
-    border-bottom: 1px solid #e5edf2;
-    padding: 0 5px;
-    cursor: pointer;
 
+#reg dl dd span.info_email {
+	top: 203px;
+	left: 295px;
 }
+
+#reg dl dd span.success_email {
+	top: 212px;
+	left: 295px;
+}
+
+#reg dl dd span.error_email {
+	top: 203px;
+	left: 295px;
+}
+
+#reg dl dd ul.all_email {
+	width: 180px;
+	height: 202px;
+	background: white;
+	padding: 5px 10px;
+	position: absolute;
+	top: 233px;
+	left: 70px;
+	border: 1px solid #cccccc;
+	display: none;
+}
+
+#reg dl dd ul.all_email li {
+	height: 25px;
+	line-height: 25px;
+	border-bottom: 1px solid #e5edf2;
+	padding: 0 5px;
+	cursor: pointer;
+}
+
 #reg dl dd span.error_birthday {
-    top: 241px;
-    left: 350px;
+	top: 241px;
+	left: 350px;
 }
+
+
 /*文本框部分*/
-#reg dl dd.ps{
-    padding: 0 0 0 300px;
+
+#reg dl dd.ps {
+	padding: 0 0 0 300px;
 }
+
 #reg dl dd.ps strong.num {
-    padding: 0 2px;
+	padding: 0 2px;
 }
+
 #reg dl dd.ps span.clear {
-    color: #06f;
-    cursor: pointer;
+	color: #06f;
+	cursor: pointer;
 }
 
 
 /*登陆部分*/
 
 #login {
-    width: 350px;
-    height: 250px;
-    border: 1px solid #ccc;
-    position: absolute;
-    display: none;
-    z-index: 9999;
-    background: #FFFFFF;
+	width: 350px;
+	height: 250px;
+	border: 1px solid #ccc;
+	position: absolute;
+	display: none;
+	z-index: 9999;
+	background: #FFFFFF;
 }
 
 #login h2 {
-    height: 40px;
-    line-height: 40px;
-    text-align: center;
-    font-size: 14px;
-    letter-spacing: 2px;
-    color: #666;
-    background: url(../img/login_header.png) repeat-x;
-    border-bottom: 1px solid #CCCCCC;
-    position: relative;
-    cursor: default;
-    
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	font-size: 14px;
+	letter-spacing: 2px;
+	color: #666;
+	background: url(../img/login_header.png) repeat-x;
+	border-bottom: 1px solid #CCCCCC;
+	position: relative;
+	cursor: default;
 }
+
 #login div.info {
 	padding: 15px 0 5px 0;
 	text-align: center;
 	color: maroon;
 }
+
 #login h2 img {
-    /*float: right;*/
-    position: absolute;
-    top: 13px;
-    right: 13px;
-    cursor: pointer;
+	/*float: right;*/
+	position: absolute;
+	top: 13px;
+	right: 13px;
+	cursor: pointer;
 }
 
 #login div.user,
 #login div.pwd {
-    font-size: 14px;
-    color: #666666;
-    padding: 6px 0;
-    text-align: center;
+	font-size: 14px;
+	color: #666666;
+	padding: 6px 0;
+	text-align: center;
 }
 
 #login input.text {
-    width: 200px;
-    height: 25px;
-    border: 1px solid #CCCCCC;
-    background: #fff;
-    font-size: 14px;
+	width: 200px;
+	height: 25px;
+	border: 1px solid #CCCCCC;
+	background: #fff;
+	font-size: 14px;
 }
 
 #login .button {
-    text-align: center;
-    padding: 15px 0;
+	text-align: center;
+	padding: 15px 0;
 }
 
 #login input.submit {
-    width: 107px;
-    height: 30px;
-    background: url(../img/login_button.png) no-repeat left;
-    cursor: pointer;
+	width: 107px;
+	height: 30px;
+	background: url(../img/login_button.png) no-repeat left;
+	cursor: pointer;
 }
 
 #login .other {
-    text-align: right;
-    padding: 15px 10px;
+	text-align: right;
+	padding: 15px 10px;
 }
 
 #login .other a {
-    color: #666666;
+	color: #666666;
 }
 
+
 /*导航部分*/
+
 #nav {
-    width: 465px;
-    height: 52px;
-    background: url(../img/nav_bg.png) no-repeat;
-    margin: 50px auto 0 auto;
-    position: relative;
+	width: 465px;
+	height: 52px;
+	background: url(../img/nav_bg.png) no-repeat;
+	margin: 50px auto 0 auto;
+	position: relative;
 }
 
 #nav ul {
-    position: absolute;
+	position: absolute;
 }
 
 #nav ul li {
-    width: 85px;
-    height: 52px;
-    line-height: 52px;
-    font-weight: 700;
-    float: left;
-    text-align: center;
-    letter-spacing: 2px;
-    font-size: 14px;
-    cursor: pointer;
+	width: 85px;
+	height: 52px;
+	line-height: 52px;
+	font-weight: 700;
+	float: left;
+	text-align: center;
+	letter-spacing: 2px;
+	font-size: 14px;
+	cursor: pointer;
 }
 
 #nav ul.black {
-    left: 20px;
-    z-index: 1;
+	left: 20px;
+	z-index: 1;
 }
-
-
 
 #nav div.nav_bg {
-    width: 85px;
-    height: 52px;
-    background: url(../img/nav_over.png) no-repeat 0 11px;
-    position: absolute;
-    left: 20px;
-    top: 0px;
-    z-index: 2;
-    overflow: hidden;
-    cursor: pointer;
-    /*opacity: 0.5;*/
-    /*filter: Alpha(Opacity=100);*/
+	width: 85px;
+	height: 52px;
+	background: url(../img/nav_over.png) no-repeat 0 11px;
+	position: absolute;
+	left: 20px;
+	top: 0px;
+	z-index: 2;
+	overflow: hidden;
+	cursor: pointer;
+	/*opacity: 0.5;*/
+	/*filter: Alpha(Opacity=100);*/
 }
 
-#nav ul.white{
-    width: 425px;
-    z-index: 3;
-    left: 0;
+#nav ul.white {
+	width: 425px;
+	z-index: 3;
+	left: 0;
 }
+
 #nav ul.white a {
-    color: #ffffff;
+	color: #ffffff;
 }
 
 #nav ul.about {
-    z-index: 4;
-    left: 20px;
-    background: #ffffff;
-    opacity: 0;
-    filter: alpha(opacity=0);
+	z-index: 4;
+	left: 20px;
+	background: #ffffff;
+	opacity: 0;
+	filter: alpha(opacity=0);
 }
 
+
+/*博文部分*/
 
 #main {
-    width: 1000px;
-    background: red;
-    margin: 50px auto;
+	width: 1000px;
+	background: red;
+	margin: 50px auto;
 }
+
 #sidebar {
-    width: 250px;
-    height: 570px;
-    /*background: #eeeeee;*/
-    float: left;
+	width: 250px;
+	height: 570px;
+	/*background: #eeeeee;*/
+	float: left;
+}
+
+#sidebar h2 {
+	width: 249px;
+	height: 30px;
+	line-height: 30px;
+	font-size: 14px;
+	background: url(../img/side_h.png);
+	text-indent: 10px;
+	border: 1px solid #cccccc;
+	border-bottom: none;
+	letter-spacing: 2px;
 
 }
-#sidebar h2 {
-    width: 249px;
-    height: 30px;
-    line-height: 30px;
-    font-size: 14px;
-    background: url(../img/side_h.png);
-    text-indent: 10px;
-    border: 1px solid #cccccc;
-    border-bottom: none;
-    letter-spacing: 2px;
-}
+
 #sidebar ul {
-    height: 150px;
-    border: 1px solid #cccccc;
-    margin: 0 0 10px 0;
-    overflow: hidden;
-    opacity: 1;
-    filter:alpha(opacity=100);
-    background: #fefefe;
+	height: 150px;
+	border: 1px solid #cccccc;
+	margin: 0 0 10px 0;
+	overflow: hidden;
+	opacity: 1;
+	filter: alpha(opacity=100);
+	background: #fefefe;
 }
-#sidebar ul li{
-    height: 30px;
-    line-height: 30px;
-    background: url(../img/arrow4.gif) no-repeat 12px center;
-    text-indent: 30px;
+
+#sidebar ul li {
+	height: 30px;
+	line-height: 30px;
+	background: url(../img/arrow4.gif) no-repeat 12px center;
+	text-indent: 30px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	padding-right: 5px;
 }
+#sidebar ul li:hover{
+	background-color: #EEEEEE;
+}
+
 #sidebar ul li a {
-    color: #333;
+	color: #333;
 }
+
 #index {
-    width: 730px;
-    height: 570px;
-    float: right;
-    position: relative;
+	width: 730px;
+	max-height: 1000px;
+	float: right;
+	position: relative;
+	/*overflow-y: auto;*/
+	overflow-x: hidden;
+	/*padding-right: 30px;*/
 }
-#index span.loading{
+
+#index span.loading {
 	position: absolute;
 	left: 260px;
 	top: 260px;
@@ -551,249 +623,261 @@ a {
 	height: 20px;
 	display: none;
 }
-#index div.content{
+
+#index div.content {
 	opacity: 0;
-	filter:alpha(opacity=0);
+	filter: alpha(opacity=0);
 }
+
 #index div.content h2 {
-    width: 728px;
-    height: 30px;
-    line-height: 30px;
-    font-size: 14px;
-    background: url(../img/side_h.png);
-    text-indent: 10px;
-    border: 1px solid #cccccc;
-    border-bottom: none;
-    letter-spacing: 2px;
+	width: 729px;
+	height: 30px;
+	line-height: 30px;
+	font-size: 14px;
+	background: url(../img/side_h.png);
+	text-indent: 10px;
+	border: 1px solid #cccccc;
+	border-bottom: none;
+	letter-spacing: 2px;
+
 }
+
 #index div.content h2 em {
 	float: right;
 	font-style: normal;
 	font-weight: normal;
-	padding: 0 10px 0 0 ;
-}
-#index div.content p {
-    height: 130px;
-    border: 1px solid #cccccc;
-    margin: 0 0 10px 0;
-    overflow: hidden;
-    padding: 10px;
-    text-indent: 24px;
-    line-height: 150%;
-    background: #fefefe;
+	padding: 0 10px 0 0;
 }
 
+#index div.content p {
+	height: auto;
+	border: 1px solid #cccccc;
+	margin: 0 0 10px 0;
+	overflow: hidden;
+	padding: 10px;
+	line-height: 150%;
+	background: #fefefe;
+}
+
+
 /*轮播图部分*/
+
 #banner {
-    width: 1000px;
-    height: 166px;
-    float: left;
-    margin: 10px 0;
-    position: relative;
-    overflow: hidden;
+	width: 1000px;
+	height: 166px;
+	float: left;
+	margin: 10px 0;
+	position: relative;
+	overflow: hidden;
 }
 
 #banner img {
-    width: 1000px;
-    height: 166px;
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-
+	width: 1000px;
+	height: 166px;
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1;
 }
+
 #banner ul {
-    position: absolute;
-    top: 135px;
-    left: 470px;
-    z-index: 4;
+	position: absolute;
+	top: 135px;
+	left: 470px;
+	z-index: 4;
+}
 
-}
 #banner ul li {
-    float: left;
-    padding: 0 5px;
-    font-size: 24px;
-    color: #999;
-    cursor: pointer;
+	float: left;
+	padding: 0 5px;
+	font-size: 24px;
+	color: #999;
+	cursor: pointer;
 }
+
 #banner span {
-    position: absolute;
-    width: 1000px;
-    height: 25px;
-    bottom: 0;
-    left: 0;
-    background: #333;
-    filter: Alpha(Opacity=30);
-    opacity: 0.3;
-    z-index: 3;
+	position: absolute;
+	width: 1000px;
+	height: 25px;
+	bottom: 0;
+	left: 0;
+	background: #333;
+	filter: Alpha(Opacity=30);
+	opacity: 0.3;
+	z-index: 3;
 }
 
 #banner strong {
-    position: absolute;
-    top: 145px;
-    left: 10px;
-    color: #ffffff;
-    z-index: 4;
+	position: absolute;
+	top: 145px;
+	left: 10px;
+	color: #ffffff;
+	z-index: 4;
 }
+
 #photo {
-    width: 1000px;
-    float: left;
-    background: #fdfdfd;
-    padding: 10px 0 0 0;
+	width: 1000px;
+	float: left;
+	background: #fdfdfd;
+	padding: 10px 0 0 0;
 }
 
 #photo dl {
-    width: 250px;
-    height: 270px;
-    float: left;
-    margin: 5px 0 15px 0;
-}
-#photo dl dt{
-    width: 225px;
-    height: 250px;
-    margin: 0 auto;
-}
-#photo dl dt img{
-    width: 225px;
-    height: 250px;
-}
-#photo dl dd{
-    height: 25px;
-    line-height: 25px;
-    text-align: center;
+	width: 250px;
+	height: 270px;
+	float: left;
+	margin: 5px 0 15px 0;
 }
 
-    /*分享部分*/
+#photo dl dt {
+	width: 225px;
+	height: 250px;
+	margin: 0 auto;
+}
+
+#photo dl dt img {
+	width: 225px;
+	height: 250px;
+}
+
+#photo dl dd {
+	height: 25px;
+	line-height: 25px;
+	text-align: center;
+}
+
+
+/*分享部分*/
+
 #share {
-    width: 210px;
-    height: 260px;
-    border: 1px solid #cccccc;
-    position: absolute;
-    top: 100px;
-    left: -211px;
-    background: #ffffff;
+	width: 210px;
+	height: 260px;
+	border: 1px solid #cccccc;
+	position: absolute;
+	top: 100px;
+	left: -211px;
+	background: #ffffff;
 }
 
 #share h2 {
-    height: 30px;
-    line-height: 30px;
-    background: #eeeeee;
-    font-size: 14px;
-    color: #666;
-    text-indent: 10px;
-    letter-spacing: 2px;
+	height: 30px;
+	line-height: 30px;
+	background: #eeeeee;
+	font-size: 14px;
+	color: #666;
+	text-indent: 10px;
+	letter-spacing: 2px;
 }
 
 #share ul {
-    height: 200px;
-    padding: 3px 0 2px 5px;
+	height: 200px;
+	padding: 3px 0 2px 5px;
 }
 
 #share ul li {
-    width: 96px;
-    height: 28px;
-    float: left;
-    padding: 2px;
+	width: 96px;
+	height: 28px;
+	float: left;
+	padding: 2px;
 }
 
 #share ul li a {
-    line-height: 26px;
-    display: block;
-    width: 95px;
-    height: 26px;
-    color: #666;
-    background-image: url(../img/share_bg.png);
-    background-repeat: no-repeat;
-    text-indent: 30px;
+	line-height: 26px;
+	display: block;
+	width: 95px;
+	height: 26px;
+	color: #666;
+	background-image: url(../img/share_bg.png);
+	background-repeat: no-repeat;
+	text-indent: 30px;
 }
 
 #share ul li a.a {
-    background-position: 5px 5px;
+	background-position: 5px 5px;
 }
 
 #share ul li a.b {
-    background-position: 5px -25px;
+	background-position: 5px -25px;
 }
 
 #share ul li a.c {
-    background-position: 5px -55px;
+	background-position: 5px -55px;
 }
 
 #share ul li a.d {
-    background-position: 5px -145px;
+	background-position: 5px -145px;
 }
 
 #share ul li a.e {
-    background-position: 5px -175px;
+	background-position: 5px -175px;
 }
 
 #share ul li a.f {
-    background-position: 5px -235px;
+	background-position: 5px -235px;
 }
 
 #share ul li a.g {
-    background-position: 5px -295px;
+	background-position: 5px -295px;
 }
 
 #share ul li a.h {
-    background-position: 5px -325px;
+	background-position: 5px -325px;
 }
 
 #share ul li a.i {
-    background-position: 5px -355px;
+	background-position: 5px -355px;
 }
 
 #share ul li a.j {
-    background-position: 5px -415px;
+	background-position: 5px -415px;
 }
 
 #share ul li a.k {
-    background-position: 5px -445px;
+	background-position: 5px -445px;
 }
 
 #share ul li a:hover {
-    opacity: 0.7;
-    filter: alpha(opacity=70);
-    color: #06f;
+	opacity: 0.7;
+	filter: alpha(opacity=70);
+	color: #06f;
 }
 
 #share .share_footer {
-    height: 26px;
-    background: #eeeeee;
-    position: relative;
-
+	height: 26px;
+	background: #eeeeee;
+	position: relative;
 }
 
+
 /*加背景色是因为ie8浏览器hover时有黑点*/
+
 #share .share_footer a {
-    padding: 0 0 0 13px;
-    background: #eeeeee url(../img/share_bg.png) no-repeat 0 -475px;
-    font-size: 12px;
-    color: #666;
-    position: absolute;
-    top: 6px;
-    left: 130px;
+	padding: 0 0 0 13px;
+	background: #eeeeee url(../img/share_bg.png) no-repeat 0 -475px;
+	font-size: 12px;
+	color: #666;
+	position: absolute;
+	top: 6px;
+	left: 130px;
 }
 
 #share .share_footer a:hover {
-    color: #06f;
-    opacity: 0.7;
-    filter: alpha(opacity=70);
+	color: #06f;
+	opacity: 0.7;
+	filter: alpha(opacity=70);
 }
 
 #share .share_footer span {
-    display: block;
-    width: 24px;
-    height: 88px;
-    position: absolute;
-    top: -205px;
-    left: 210px;
-    background: url(../img/share.png);
-    cursor: pointer;
-
+	display: block;
+	width: 24px;
+	height: 88px;
+	position: absolute;
+	top: -205px;
+	left: 210px;
+	background: url(../img/share.png);
+	cursor: pointer;
 }
-
 
 #loading {
 	position: absolute;
@@ -806,7 +890,7 @@ a {
 	display: none;
 }
 
-#loading p{
+#loading p {
 	height: 40px;
 	line-height: 40px;
 	font-size: 14px;
@@ -814,10 +898,7 @@ a {
 	font-weight: bold;
 	background: url(../img/loading3.gif) no-repeat 20px center;
 	text-indent: 50px;
-	
-	
 }
-
 
 #success {
 	position: absolute;
@@ -830,7 +911,7 @@ a {
 	display: none;
 }
 
-#success p{
+#success p {
 	height: 40px;
 	line-height: 40px;
 	font-size: 14px;
@@ -838,80 +919,81 @@ a {
 	font-weight: bold;
 	background: url(../img/success.gif) no-repeat 20px center;
 	text-indent: 50px;
-	
-	
 }
 
-
 #photo_big {
-    width: 620px;
-    height: 511px;
-    border: 1px solid #ccc;
-    position: absolute;
-    display: none;
-   	top: 100px;
-   	left: 200px;
-    z-index: 9999;
-    background: #FFFFFF;
-
+	width: 620px;
+	height: 511px;
+	border: 1px solid #ccc;
+	position: absolute;
+	display: none;
+	top: 100px;
+	left: 200px;
+	z-index: 9999;
+	background: #FFFFFF;
 }
 
 #photo_big h2 {
-    height: 40px;
-    line-height: 40px;
-    text-align: center;
-    font-size: 14px;
-    letter-spacing: 2px;
-    color: #666;
-    background: url(../img/login_header.png) repeat-x;
-    border-bottom: 1px solid #CCCCCC;
-    position: relative;
-    cursor: default;
-    /*margin-bottom: 20px;*/
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	font-size: 14px;
+	letter-spacing: 2px;
+	color: #666;
+	background: url(../img/login_header.png) repeat-x;
+	border-bottom: 1px solid #CCCCCC;
+	position: relative;
+	cursor: default;
+	/*margin-bottom: 20px;*/
 }
+
 #photo_big h2 img {
-    /*float: right;*/
-    position: absolute;
-    top: 13px;
-    right: 13px;
-    cursor: pointer;
+	/*float: right;*/
+	position: absolute;
+	top: 13px;
+	right: 13px;
+	cursor: pointer;
 }
-#photo_big .big{
+
+#photo_big .big {
 	width: 620px;
 	height: 460px;
-	padding: 10px 0 0 0 ;
+	padding: 10px 0 0 0;
 	background: #333333;
 }
-#photo_big .big img{
+
+#photo_big .big img {
 	display: block;
 	margin: 0 auto;
 	position: relative;
 	top: 190px;
-
 }
+
 #photo_big .big strong {
 	display: block;
 	width: 100px;
 	height: 100px;
 	line-height: 90px;
 	background: #000000;
-	opacity:0;
+	opacity: 0;
 	filter: alpha(opacity=0);
 	font-size: 60px;
 	color: #FFFFFF;
 	text-align: center;
 	cursor: pointer;
 	position: absolute;
-	
 }
-#photo_big .big strong.sl{
+
+#photo_big .big strong.sl {
 	top: 210px;
 	left: 10px;
 }
-#photo_big .big strong.sr{
+
+#photo_big .big strong.sr {
 	top: 210px;
 	right: 10px;
 }
+
 #photo_big .big span {
 	width: 300px;
 	height: 450px;
@@ -922,14 +1004,17 @@ a {
 	cursor: pointer;
 	position: absolute;
 }
+
 #photo_big .big span.left {
 	top: 50px;
 	left: 10px;
 }
+
 #photo_big .big span.right {
 	top: 50px;
 	right: 10px;
 }
+
 #photo_big .big em {
 	position: absolute;
 	top: 460px;
@@ -938,69 +1023,75 @@ a {
 	font-size: 16px;
 	font-style: normal;
 	letter-spacing: 2px;
-	
 }
 
-/*博文发表*/
-#blog {
-    width: 580px;
-    height: 320px;
-    border: 1px solid #ccc;
-    position: absolute;
-    display: none;
-    z-index: 9999;
-    background: #FFFFFF;
 
+/*博文发表*/
+
+#blog {
+	width: 580px;
+	height: 320px;
+	border: 1px solid #ccc;
+	position: absolute;
+	display: none;
+	z-index: 9999;
+	background: #FFFFFF;
 }
 
 #blog h2 {
-    height: 40px;
-    line-height: 40px;
-    text-align: center;
-    font-size: 14px;
-    letter-spacing: 2px;
-    color: #666;
-    background: url(../img/login_header.png) repeat-x;
-    border-bottom: 1px solid #CCCCCC;
-    position: relative;
-    cursor: default;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	font-size: 14px;
+	letter-spacing: 2px;
+	color: #666;
+	background: url(../img/login_header.png) repeat-x;
+	border-bottom: 1px solid #CCCCCC;
+	position: relative;
+	cursor: default;
 }
+
 #blog h2 img {
-    /*float: right;*/
-    position: absolute;
-    top: 13px;
-    right: 13px;
-    cursor: pointer;
+	/*float: right;*/
+	position: absolute;
+	top: 13px;
+	right: 13px;
+	cursor: pointer;
 }
+
 #blog div.info {
 	padding: 15px 0 5px 0;
 	text-align: center;
 	color: maroon;
-	
 }
+
 #blog dl {
 	padding: 0 0 0 10px;
 }
-#blog dl dd{
+
+#blog dl dd {
 	font-size: 14px;
 	padding: 10px;
 }
-#blog dl dd input.title{
-    width: 200px;
-    height: 25px;
-    border: 1px solid #CCCCCC;
-    background: #fff;
-    font-size: 14px;
-    color: #999;
+
+#blog dl dd input.title {
+	width: 200px;
+	height: 25px;
+	border: 1px solid #CCCCCC;
+	background: #fff;
+	font-size: 14px;
+	color: #999;
 }
+
 #blog dl dd textarea.content {
-    width: 360px;
-    height: 100px;
-    max-width: 360px;
-    max-height: 100px;
-    background: #ffffff;
-/*    resize: none;*/
+	width: 360px;
+	height: 100px;
+	max-width: 360px;
+	max-height: 100px;
+	background: #ffffff;
+	/*    resize: none;*/
 }
+
 #blog dl dd input.submit {
 	width: 107px;
 	height: 33px;
@@ -1009,41 +1100,45 @@ a {
 	cursor: pointer;
 }
 
-/*换肤功能*/
-#skin {
-    width: 650px;
-    height: 360px;
-    border: 1px solid #ccc;
-    position: absolute;
-    display: none;
-    z-index: 9999;
-    background: #FFFFFF;
 
+/*换肤功能*/
+
+#skin {
+	width: 650px;
+	height: 360px;
+	border: 1px solid #ccc;
+	position: absolute;
+	display: none;
+	z-index: 9999;
+	background: #FFFFFF;
 }
 
 #skin h2 {
-    height: 40px;
-    line-height: 40px;
-    text-align: center;
-    font-size: 14px;
-    letter-spacing: 2px;
-    color: #666;
-    background: url(../img/login_header.png) repeat-x;
-    border-bottom: 1px solid #CCCCCC;
-    position: relative;
-    cursor: default;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	font-size: 14px;
+	letter-spacing: 2px;
+	color: #666;
+	background: url(../img/login_header.png) repeat-x;
+	border-bottom: 1px solid #CCCCCC;
+	position: relative;
+	cursor: default;
 }
+
 #skin h2 img {
-    /*float: right;*/
-    position: absolute;
-    top: 13px;
-    right: 13px;
-    cursor: pointer;
+	/*float: right;*/
+	position: absolute;
+	top: 13px;
+	right: 13px;
+	cursor: pointer;
 }
+
 #skin dl {
 	float: left;
 	padding: 12px 0 0 12px;
 }
+
 #skin dl dt {
 	display: block;
 	cursor: pointer;
@@ -1054,10 +1149,11 @@ a {
 	/*padding: 5px;*/
 	letter-spacing: 1px;
 }
+
 #skin .skin_bg {
 	position: relative;
-	
 }
+
 #skin .skin_bg span.loading {
 	width: 100px;
 	height: 20px;
@@ -1072,20 +1168,38 @@ a {
 	float: left;
 	text-align: center;
 	padding: 5px;
+	margin-top: 30px;
 }
-#footer p{
+
+#footer p {
 	padding: 5px;
 }
 
-/*遮罩层*/
-#screen {
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: #000000;
-    z-index: 9998;
-    opacity: 0;
-    filter: alpha(opacity=0);
-    display: none;
+#footer ul {
+	margin: 0 auto;
+	overflow: hidden;
+	display: inline-block;
 }
 
+#footer ul li {
+	float: left;
+}
+
+#footer ul li i {
+	font-style: normal;
+	padding: 0 4px;
+}
+
+
+/*遮罩层*/
+
+#screen {
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: #000000;
+	z-index: 9998;
+	opacity: 0;
+	filter: alpha(opacity=0);
+	display: none;
+}
