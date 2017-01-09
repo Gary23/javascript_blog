@@ -411,7 +411,17 @@ new Base的步骤通过$()就可以实现，因为使用了工厂模式，每次
 
 #### base_drag.js 拖拽插件 
 
-#### base_animate.js 动画插件
+使用`$('#skin').drag($('#skin h2').first())`拖动#skin下的第一个h2元素就可以拖动整个#skin弹出框,参数可以是多个元素。返回Base对象。
 
+插件内部先给元素绑定movedown事件,事件内先得到client - offset的值也就是鼠标当前位置距离拖动元素的上边距及左边距。有top和left两个值
 
+在movedown事件内部触发mousemove事件时,算出clientX - 上一步算的边距,实时得出拖动元素距离浏览器窗口边距的值,实时赋值给元素的top属性和left属性变完成了拖动。
+
+另外通过检测元素距离浏览器窗口的距离值让元素的拖动时不能超过浏览器窗口的范围。
+
+#### base_form.js 表格序列化插件
+
+使用：`$('form').eq(0).serialize()`序列化页面中第一个form表单。
+
+一般用作发送ajas请求,一个form表单里,会有一些不需要提交的表单类型,比如submit、reset等,通过switch语句过滤筛选出需要提交的内容,返回对象形式作为ajax中的data发送。
 
