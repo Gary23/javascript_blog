@@ -1,7 +1,5 @@
-//window.onload = function() {
-
 $().ready(function() {
-	// 个人中心
+	/*---------------------------------------------- 个人中心效果------------------------------------------*/
 	$('#header .member').hover(function() {
 
 		$('#header ul').show().animate({
@@ -23,6 +21,8 @@ $().ready(function() {
 			}
 		})
 	})
+
+    /*-------------------------------------------注册部分,包含表单验证-----------------------------------------*/
 
 	//遮罩画布
 	var screen = $('#screen')
@@ -521,6 +521,7 @@ $().ready(function() {
 
 	})
 
+    /*--------------------------------------------------登录部分-------------------------------------------------*/
 	// 登录框
 	var login = $('#login')
 	login.center(350, 250).resize(function() {
@@ -597,9 +598,20 @@ $().ready(function() {
 		}
 	})
 
+	// 用户退出登录
+	$('#header .quit').click(function(){
+		$('#header .reg').show();
+		$('#header .login').show();
+		$('#header .info').hide().html('');
+        $('#header ul').hide();
+	})
+
+
 	//	登录框拖动
 	login.drag($('#login h2').first());
 	reg.drag($('#reg h2').first());
+
+    /*--------------------------------------------------分享部分-------------------------------------------------*/
 
 	// 百度分享
 	$('#share').css('top', getScroll().top + (getInner().height - parseInt(getStyle($('#share').first(), 'height'))) / 2 + 'px')
@@ -627,6 +639,8 @@ $().ready(function() {
 		})
 	})
 
+
+    /*--------------------------------------------------导航部分-------------------------------------------------*/
 	// 导航部分
 	$('#nav .about li').hover(function() {
 		var target = $(this).first().offsetLeft;
@@ -673,6 +687,7 @@ $().ready(function() {
 		})
 	})
 
+    /*--------------------------------------------------轮播图部分-------------------------------------------------*/
 	//轮播图部分初始化      // 页面刚打开时候的样子
 	$('#banner img').opacity(0);
 	$('#banner img').eq(0).opacity(100);
@@ -740,6 +755,7 @@ $().ready(function() {
 		bannerIndex++;
 	}
 
+    /*--------------------------------------------------相册部分-------------------------------------------------*/
 	// 懒加载部分
 	var waitLoad = $('.wait_load');
 	waitLoad.opacity(0);
@@ -842,15 +858,15 @@ $().ready(function() {
 	photoBig.drag($('#photo_big h2').first());
 
 	// 图片的左右箭头划过显示
-	$('$photo_big .big .left').hover(function() {
-		$('$photo_big .big .sl').animate({
+	$('#photo_big .big .left').hover(function() {
+		$('#photo_big .big .sl').animate({
 			attr: 'o',
 			target: 50,
 			t: 30,
 			step: 10
 		})
 	}, function() {
-		$('$photo_big .big .sl').animate({
+		$('#photo_big .big .sl').animate({
 			attr: 'o',
 			target: 0,
 			t: 30,
@@ -858,15 +874,15 @@ $().ready(function() {
 		})
 	})
 
-	$('$photo_big .big .right').hover(function() {
-			$('$photo_big .big .sr').animate({
+	$('#photo_big .big .right').hover(function() {
+			$('#photo_big .big .sr').animate({
 				attr: 'o',
 				target: 50,
 				t: 30,
 				step: 10
 			})
 		}, function() {
-			$('$photo_big .big .sr').animate({
+			$('#photo_big .big .sr').animate({
 				attr: 'o',
 				target: 0,
 				t: 30,
@@ -949,6 +965,7 @@ $().ready(function() {
 	}
 
 
+    /*--------------------------------------------------发表文章部分-------------------------------------------------*/
 	// 发表博文的弹窗
 	var blog = $('#blog')
 	blog.center(580, 320).resize(function() {
@@ -975,7 +992,7 @@ $().ready(function() {
 			}
 		});
 	});	
-//	拖拽
+    //	拖拽
 	blog.drag($('#blog h2').first());
 	
 	$('form').eq(2).form('sub').click(function(){
@@ -1049,8 +1066,8 @@ $().ready(function() {
 			})
 		}
 	})
-	
-	// 获取博文列表
+
+    /*--------------------------------------------------博文部分-------------------------------------------------*/
 	$('#index').html('<span class="loading"></span>');
 	$('#index .loading').show()
 	ajax({
@@ -1063,7 +1080,6 @@ $().ready(function() {
 			var html = '';
 			for(var i = 0;i < json.length;i++){
 				json[i].content = json[i].content.replace(/\n/g, '<br/>');
-				console.log(json[i])
 				html += '<div class="content"><h2><em>' + json[i].date + '</em>' + json[i].title + '</h2><p>' + json[i].content + '</p></div>'
 			}
 			$('#index').html(html);
@@ -1078,8 +1094,9 @@ $().ready(function() {
 		},
 		async: true
 	})
-	
-	
+
+
+    /*--------------------------------------------------换肤部分-------------------------------------------------*/
 	// 换肤的弹窗
 	var skin = $('#skin')
 	skin.center(630, 360).resize(function() {

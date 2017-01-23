@@ -106,6 +106,15 @@ a {
 	background: #fc0 url(../img/arrow4.gif) no-repeat 5px center;
 }
 
+#header .github{
+	float: right;
+	width: 80px;
+	height: 30px;
+	line-height: 30px;
+	cursor: pointer;
+	margin-right: 20px;
+	font-size: 14px;
+}
 #header .login,
 #header .reg,
 #header .info {
